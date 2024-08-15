@@ -4,7 +4,7 @@
 	
 	<div class="col-lg-12">
 		<div class="row">
-			<!-- FORM Panel -->
+			<!-- Form Panel -->
 			<div class="col-md-4">
 			<form action="" id="manage-room">
 				<div class="card">
@@ -36,16 +36,15 @@
 								<select class="custom-select browser-default" name="status">
 									<option value="0">Available</option>
 									<option value="1">Unavailable</option>
-
 								</select>
 							</div>
 					</div>
 							
 					<div class="card-footer">
 						<div class="row">
-							<div class="col-md-12">
-								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3"> Save</button>
-								<button class="btn btn-sm btn-default col-sm-3" type="button" onclick="$('#manage-room').get(0).reset()"> Cancel</button>
+							<div class="col-md-12" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap">
+							<button class="btn btn-primary" style="width: 6rem;"> Save</button>
+                     <button class="btn btn-danger" type="button" onclick="$('#manage-room').get(0).reset()" style="width: 6rem;"> Cancel</button>
 							</div>
 						</div>
 					</div>
@@ -77,9 +76,8 @@
 								<tr>
 									<td class="text-center"><?php echo $i++ ?></td>
 
-								
 									<td class="text-center"><?php echo $cat_name[$row['category_id']] ?></td>
-									<td class=""><?php echo $row['room'] ?></td>
+									<td class="text-center"><?php echo $row['room'] ?></td>
 									<?php if($row['status'] == 0): ?>
 										<td class="text-center"><span class="badge badge-success">Available</span></td>
 									<?php else: ?>

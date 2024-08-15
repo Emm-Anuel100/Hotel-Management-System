@@ -65,16 +65,15 @@
 								?>
 								<tr>
 									<td class="text-center"><?php echo $i++ ?></td>
-
 								
 									<td class="text-center">
-										<img src="<?php echo isset($row['cover_img']) ? '../assets/img/'.$row['cover_img'] :'' ?>" alt="" id="cimg">
+										<img src="<?php echo isset($row['cover_img']) ? '../assets/img/'.$row['cover_img'] :'' ?>" alt="room category image" id="cimg">
 									</td>
 									<td class="">
 										<p>Name : <b><?php echo $row['name'] ?></b></p>
 									</td>
 									<td class="">
-										<p>Price : <b><?php echo "N".number_format($row['price'],2) ?></b></p>
+										<p>Price : <b><?php echo "&#8358;".number_format($row['price'],2) ?></b></p>
 									</td>
 									<td class="text-center">
 										<button class="btn btn-sm btn-primary edit_cat" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-price="<?php echo $row['price'] ?>" data-cover_img="<?php echo $row['cover_img'] ?>">Edit price</button>
@@ -128,14 +127,14 @@
 					alert_toast("Data successfully added",'success')
 					setTimeout(function(){
 						location.reload()
-					},1500)
+					},5000)
 
 				}
 				else if(resp==2){
 					alert_toast("Data successfully updated",'success')
 					setTimeout(function(){
 						location.reload()
-					},1500)
+					},5000)
 
 				}
 			}

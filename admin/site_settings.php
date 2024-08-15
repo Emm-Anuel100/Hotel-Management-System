@@ -13,15 +13,15 @@ if($qry->num_rows > 0){
 		<div class="card-body">
 			<form action="" id="manage-settings">
 				<div class="form-group">
-					<label for="name" class="control-label">Hotel Name</label>
+					<label for="name" class="control-label">Hotel Name:</label>
 					<input type="text" class="form-control" id="name" name="name" value="<?php echo isset($meta['hotel_name']) ? $meta['hotel_name'] : '' ?>" required>
 				</div>
 				<div class="form-group">
-					<label for="email" class="control-label">Hotel email</label>
+					<label for="email" class="control-label">Hotel email:</label>
 					<input type="email" class="form-control" id="email" name="email" value="<?php echo isset($meta['email']) ? $meta['email'] : '' ?>" required>
 				</div>
 				<div class="form-group">
-					<label for="contact" class="control-label">Hotel Contact</label>
+					<label for="contact" class="control-label">Hotel Contact:</label>
 					<input type="text" class="form-control" id="contact" name="contact" value="<?php echo isset($meta['contact']) ? $meta['contact'] : '' ?>" required>
 				</div>
 				<!-- <div class="form-group">
@@ -30,7 +30,7 @@ if($qry->num_rows > 0){
 
 				</div> -->
 				<div class="form-group">
-					<label for="" class="control-label">Image</label>
+					<label for="" class="control-label">Cover Photo:</label>
 					<input type="file" class="form-control" name="img" onchange="displayImg(this,$(this))">
 				</div>
 				<div class="form-group">

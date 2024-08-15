@@ -20,7 +20,7 @@
   <link href="assets/DataTables/datatables.min.css" rel="stylesheet">
 
 
-  <!-- Template Main CSS File -->
+  <!-- Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="assets/css/jquery-te-1.4.0.css">
   

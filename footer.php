@@ -1,15 +1,3 @@
-
-    <!-- Search model Begin -->
-    <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-            <div class="search-close-switch"><i class="icon_close"></i></div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here.....">
-            </form>
-        </div>
-    </div>
-    <!-- Search model end -->
-
         
         <!-- Footer Section Begin -->
          <footer class="footer-section">
@@ -60,10 +48,10 @@
                     <div class="row">
                         <div class="col-lg-7">
                             <ul>
-                                <li><a href="./contact.php">Contact</a></li>
+                                <li><a href="./index.php?page=contact">Contact</a></li>
                                 <li><a href="#">Terms of use</a></li>
                                 <li><a href="#">Privacy policy</a></li>
-                                <li><a href="./admin/">Staff</a></li>
+                                <li><a href="./admin/">Admin</a></li>
                             </ul>
                         </div>
                         <div class="col-lg-5">
@@ -76,3 +64,4 @@
             </div>
         </footer>
         <!-- Footer Section End -->
+

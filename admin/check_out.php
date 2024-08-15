@@ -19,14 +19,19 @@ while($row = $room->fetch_assoc()){
 <div class="container-fluid">
 <h4 class="refresh"><i class="fas fa-refresh"></i> Refresh</h4> <br/>
 
-<style>
-  h4.refresh{
-      cursor: pointer;
-      margin-top: 20px;
-      margin-left: 40px;
-      font-size: 16px;
-  }
-</style>
+
+<style> 
+ h4.refresh{
+    cursor: pointer;
+    margin-top: 20px;
+    margin-left: 40px;
+    font-size: 16px;
+   }
+	tr,th{
+	text-align: center;
+   }
+  </style>
+
     <div class="col-lg-12">
         <div class="row mt-3">
             <div class="col-md-12">
@@ -48,8 +53,8 @@ while($row = $room->fetch_assoc()){
                                 while($row = $checked->fetch_assoc()): 
 
                                     // Initialize variables
-                                    $category_name = 'N/A';
-                                    $room_name = 'N/A';
+                                    $category_name = '.....';
+                                    $room_name = '.....';
 
                                     // Check if the room_id exists in $room_arr
                                     if (isset($room_arr[$row['room_id']])) {
@@ -87,16 +92,33 @@ while($row = $room->fetch_assoc()){
 </div>
 
 <script>
+    $(document).ready(function() {
     $('table').dataTable();
-    $('.check_out').click(function(){
+
+    // Use event delegation for dynamically generated elements
+    $(document).on('click', '.check_out', function() {
         uni_modal("Check Out", "manage_check_out.php?checkout=1&id=" + $(this).attr("data-id"));
     });
+
     $('#filter').submit(function(e){
         e.preventDefault();
         location.replace('index.php?page=check_in&category_id=' + $(this).find('[name="category_id"]').val() + '&status=' + $(this).find('[name="status"]').val());
     });
 
-    $('.refresh').click(function(){
-		window.location.reload();
-	})
+    // $('.refresh').click(function(){
+    //     window.location.reload();
+    // });
+   });
+    // $('table').dataTable();
+    // $('.check_out').click(function(){
+    //     uni_modal("Check Out", "manage_check_out.php?checkout=1&id=" + $(this).attr("data-id"));
+    // });
+    // $('#filter').submit(function(e){
+    //     e.preventDefault();
+    //     location.replace('index.php?page=check_in&category_id=' + $(this).find('[name="category_id"]').val() + '&status=' + $(this).find('[name="status"]').val());
+    // });
+
+    // $('.refresh').click(function(){
+	// 	window.location.reload();
+	// })
 </script>
