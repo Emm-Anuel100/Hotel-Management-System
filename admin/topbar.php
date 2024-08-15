@@ -9,8 +9,8 @@
 }
 .hotel-name{
 	position: relative;
-	right: 35px;
-	top: 7px;
+	right: 5px;
+	top: 10px;
 }
 .login-name{
 	position: relative;

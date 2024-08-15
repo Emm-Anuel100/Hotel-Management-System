@@ -10,6 +10,14 @@
 		margin-left: 40px;
 		font-size: 16px;
 	}
+
+	.btn-filter{
+		width: 10rem;
+	}
+
+	tr,th{
+		text-align: center;
+	}
   </style>
 
 	<div class="col-lg-12">
@@ -38,7 +46,7 @@
 										</div> 
 										<div class="col-md-2">
 											<label for="" class="control-label">&nbsp;</label>
-											<button class="btn btn-block btn-primary">Filter</button>
+											<button class="btn btn-primary btn-filter">Filter</button>
 										</div>
 									</div>
 								</form>
@@ -98,16 +106,34 @@
 </div>
 
 <script>
-	//$('table').dataTable()
-	$('.check_in').click(function(){
-		uni_modal("Check In","manage_check_in.php?rid="+$(this).attr("data-id"))
-	})
-	$('#filter').submit(function(e){
-		e.preventDefault()
-		location.replace('index.php?page=check_in&category_id='+$(this).find('[name="category_id"]').val()+'&status='+$(this).find('[name="status"]').val())
-	})
+	$(document).ready(function() {
+    $('table').dataTable();
 
-	$('.refresh').click(function(){
-		window.location.reload();
-	})
+    // Use event delegation for dynamically generated elements
+    $(document).on('click', '.check_in', function() {
+        uni_modal("Check In", "manage_check_in.php?rid=" + $(this).attr("data-id"));
+    });
+
+    $('#filter').submit(function(e) {
+        e.preventDefault();
+        location.replace('index.php?page=check_in&category_id=' + $(this).find('[name="category_id"]').val() + '&status=' + $(this).find('[name="status"]').val());
+    });
+
+    $('.refresh').click(function() {
+        window.location.reload();
+    });
+});
+
+	// $('table').dataTable()
+	// $('.check_in').click(function(){
+	// 	uni_modal("Check In","manage_check_in.php?rid="+$(this).attr("data-id"))
+	// })
+	// $('#filter').submit(function(e){
+	// 	e.preventDefault()
+	// 	location.replace('index.php?page=check_in&category_id='+$(this).find('[name="category_id"]').val()+'&status='+$(this).find('[name="status"]').val())
+	// })
+
+	// $('.refresh').click(function(){
+	// 	window.location.reload();
+	// })
 </script>

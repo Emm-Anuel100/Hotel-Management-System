@@ -54,7 +54,7 @@ Class Action {
 		}
 	}
 
-	function save_settings(){
+	function save_settings(){ //$_SESSION['setting_hotel_name']
 		extract($_POST);
 		$data = " hotel_name = '$name' ";
 		$data .= ", email = '$email' ";
@@ -62,8 +62,7 @@ Class Action {
 		if($_FILES['img']['tmp_name'] != ''){
 						$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
 						$move = move_uploaded_file($_FILES['img']['tmp_name'],'../assets/img/'. $fname);
-					$data .= ", cover_img = '$fname' ";
-
+					$data .= ", cover_img = '$fname' ";	
 		}
 		
 		// echo "INSERT INTO system_settings set ".$data;
@@ -81,7 +80,7 @@ Class Action {
 		}
 
 			return 1;
-				}
+			}
 	}
 
 	function save_category(){
@@ -159,6 +158,7 @@ Class Action {
 					return $id;
 		}
 	}
+	
 	function save_checkout(){
 		extract($_POST);
 			$save = $this->db->query("UPDATE checked set status = 2 where id=".$id);
@@ -169,30 +169,33 @@ Class Action {
 			}
 
 	}
+
 	function save_book(){
 		extract($_POST);
 		$data = " booked_cid = '$cid' ";
 		$data .= ", name = '$name' ";
 		$data .= ", contact_no = '$contact' ";
 		$data .= ", status = 0 ";
-
+  
 		$data .= ", date_in = '".$date_in.' '.$date_in_time."' ";
-		$out= date("Y-m-d H:i",strtotime($date_in.' '.$date_in_time.' +'.$days.' days'));
+		$out = date("Y-m-d H:i", strtotime($date_in.' '.$date_in_time.' +'.$days.' days'));
 		$data .= ", date_out = '$out' ";
 		$i = 1;
-		while($i== 1){
-			$ref  = sprintf("%'.04d\n",mt_rand(1,9999999999));
-			if($this->db->query("SELECT * FROM checked where ref_no ='$ref'")->num_rows <= 0)
-				$i=0;
+		while($i == 1){
+			 $ref  = sprintf("%'.04d\n", mt_rand(1,9999999999));
+			 if($this->db->query("SELECT * FROM checked where ref_no ='$ref'")->num_rows <= 0)
+				  $i = 0;
 		}
 		$data .= ", ref_no = '$ref' ";
-
-			$save = $this->db->query("INSERT INTO checked set ".$data);
-			$id=$this->db->insert_id;
+  
+		$save = $this->db->query("INSERT INTO checked set ".$data);
+		$id = $this->db->insert_id;
 		
 		if($save){
-					return $id;
+			 // Return reference number and ID as JSON
+			 return json_encode(['id' => $id, 'ref_no' => $ref]);
 		}
-	}
+		return false;
+  }  
 
 }

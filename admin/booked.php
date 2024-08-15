@@ -12,6 +12,23 @@ while($row = $room->fetch_assoc()){
 	$room_arr[$row['id']] = $row;
 }
 ?>
+
+  <style>
+	h4.refresh{
+		cursor: pointer;
+		margin-top: 20px;
+		margin-left: 40px;
+		font-size: 16px;
+	}
+
+	.btn-filter{
+		width: 10rem;
+	}
+
+	tr,th{
+		text-align: center;
+	}
+  </style>
 <div class="container-fluid">
 	<div class="col-lg-12">
 		<div class="row mt-3">
@@ -29,7 +46,8 @@ while($row = $room->fetch_assoc()){
 							<tbody>
 								<?php 
 								$i = 1;
-								$checked = $conn->query("SELECT * FROM checked where status = 0 order by status desc, id asc");
+								// $checked = $conn->query("SELECT * FROM checked where status = 0 order by status desc, id asc");
+								$checked = $conn->query("SELECT * FROM checked WHERE status = 0 ORDER BY status DESC, id DESC");
 								while($row=$checked->fetch_assoc()):
 								?>
 								<tr>
@@ -52,12 +70,26 @@ while($row = $room->fetch_assoc()){
 </div>
 
 <script>
-	$('table').dataTable()
-	$('.check_out').click(function(){
-		uni_modal("Check Out","manage_check_out.php?checkout=1&id="+$(this).attr("data-id"))
-	})
-	$('#filter').submit(function(e){
-		e.preventDefault()
-		location.replace('index.php?page=check_in&category_id='+$(this).find('[name="category_id"]').val()+'&status='+$(this).find('[name="status"]').val())
-	})
+	$(document).ready(function() {
+    $('table').dataTable();
+
+    // Use event delegation for dynamically generated elements
+    $(document).on('click', '.check_out', function() {
+        uni_modal("Check Out", "manage_check_out.php?checkout=1&id=" + $(this).attr("data-id"));
+    });
+
+    $('#filter').submit(function(e) {
+        e.preventDefault();
+        location.replace('index.php?page=check_in&category_id=' + $(this).find('[name="category_id"]').val() + '&status=' + $(this).find('[name="status"]').val());
+    });
+});
+
+	// $('table').dataTable()
+	// $('.check_out').click(function(){
+	// 	uni_modal("Check Out","manage_check_out.php?checkout=1&id="+$(this).attr("data-id"))
+	// })
+	// $('#filter').submit(function(e){
+	// 	e.preventDefault()
+	// 	location.replace('index.php?page=check_in&category_id='+$(this).find('[name="category_id"]').val()+'&status='+$(this).find('[name="status"]').val())
+	// })
 </script>

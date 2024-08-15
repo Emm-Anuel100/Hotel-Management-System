@@ -1,8 +1,11 @@
 
-html, body {
+html, 
+body {
 	height: 100%;
 	font-family: "Cabin", sans-serif;
 	-webkit-font-smoothing: antialiased;
+	width: 100%;
+	overflow-x: hidden;
 	font-smoothing: antialiased;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -2304,3 +2307,5 @@ ul, ol {
 		margin-bottom: 10px;
 	}
 }
+
+

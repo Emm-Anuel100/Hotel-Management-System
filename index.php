@@ -4,6 +4,8 @@
     session_start();
     include('./head.php');
     include('admin/db_connect.php');
+    date_default_timezone_set('Africa/Lagos');
+
 
 	$query = $conn->query("SELECT * FROM system_settings limit 1")->fetch_array();
 	foreach ($query as $key => $value) {
@@ -58,10 +60,8 @@
      </div>
         
       <?php 
-       include("./footer.php");
        include('./jquery-modal.php');
       ?>
     </body>
-
   <?php $conn->close() ?>
 </html>

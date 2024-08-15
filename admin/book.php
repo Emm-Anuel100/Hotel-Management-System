@@ -1,11 +1,32 @@
 <?php 
 include('db_connect.php');
 
-	$rid = '';
+ $rid = '';
 
 $calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ; 
  $calc_days =floor($calc_days / (60*60*24)  );
 ?>
+
+<!---*** room booked notification ***--->
+<div id="alert-toast" class="alert-toast"></div>
+<style>
+    .alert-toast {
+        position: fixed;
+        top: 20px; 
+        right: 20px; 
+        z-index: 9999; 
+        display: none; 
+        background-color: blue;
+        color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        font-size: 16px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    }
+</style>
+
+
+<div id="alert-toast" class="alert-toast"></div>
 
 <div class="container-fluid">
 	
@@ -36,23 +57,52 @@ $calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ;
 		</div>
 	</form>
 </div>
+
 <script>
+	function alert_toast(message, type) {
+    var toast = $('#alert-toast');
+    toast.text(message);
+    toast.removeClass('success error'); // Remove previous type classes
+    toast.addClass(type); // Add the new type class
+    toast.fadeIn().delay(6000).fadeOut(); // Show for 6 seconds
+    }
+
 	$('#manage-check').submit(function(e){
-		e.preventDefault();
-		start_load()
-		$.ajax({
-			url:'admin/ajax.php?action=save_book',
-			method:'POST',
-			data:$(this).serialize(),
-			success:function(resp){
-				if(resp >0){
-					alert_toast("Room booked sucessfully!",'success')
-					setTimeout(function(){
-					end_load()
-					$('.modal').modal('hide')
-					},1500)
-				}
-			}
-		})
-	})
+    e.preventDefault();
+    start_load();
+    $.ajax({
+        url: 'admin/ajax.php?action=save_book',
+        method: 'POST',
+        data: $(this).serialize(),
+        success: function(response) {
+            var resp = JSON.parse(response);
+            if (resp.id > 0) {
+                alert_toast("Room booked your reference No: " + resp.ref_no, 'success');
+                setTimeout(function(){
+                    end_load();
+                    $('.modal').modal('hide');
+                }, 8000);
+            }
+        }
+    });
+});
+
+// $('#manage-check').submit(function(e){
+// 	e.preventDefault();
+// 	start_load()
+// 	$.ajax({
+// 		url:'admin/ajax.php?action=save_book',
+// 		method:'POST',
+// 		data:$(this).serialize(),
+// 		success:function(resp){
+// 			if(resp >0){
+// 				alert_toast("Room booked sucessfully!",'success')
+// 				setTimeout(function(){
+// 				end_load()
+// 				$('.modal').modal('hide')
+// 				},1500)
+// 			}
+// 		}
+// 	})
+// })
 </script>

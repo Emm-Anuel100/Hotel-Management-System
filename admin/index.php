@@ -1,3 +1,6 @@
+<?php 
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,14 +8,14 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <link rel="shortcut icon" href="../img/flag.jpg" type="image/x-icon">
-  <title>Hotel Management Section</title>
- 	
-
-<?php
-	session_start();
+  <title><?= $_SESSION['setting_hotel_name'] . " | Admin & Staff Section" ?></title>
+ 	 
+  <?php
+	// session_start();
   if(!isset($_SESSION['login_id']))
     header('location:login.php');
- include('./header.php'); 
+    include('./header.php'); 
+    date_default_timezone_set('Africa/Lagos');
  ?>
 </head>
 
