@@ -560,7 +560,7 @@
                                 <ul>
                                     <li><?= $_SESSION['setting_contact'] ?></li>
                                     <li><?= $_SESSION['setting_email'] ?></li>
-                                    <li>856 Cordia Extension Apt. 356, Lake, United State</li>
+                                    <li>Plot DD34, kings Avenue Lekki Lagos Nigeria.</li>
                                 </ul>
                             </div>
                         </div>

@@ -151,7 +151,7 @@
                             <tbody>
                                 <tr>
                                     <td class="c-o">Address:</td>
-                                    <td>856 Cordia Extension Apt. 356, Lake, US</td>
+                                    <td>Plot DD34, kings Avenue Lekki Lagos Nigeria.</td>
                                 </tr>
                                 <tr>
                                     <td class="c-o">Phone:</td>
