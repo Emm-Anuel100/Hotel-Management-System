@@ -17,7 +17,7 @@ The **Hotel Management System** is a comprehensive software solution designed to
 
 ## Technologies Used
 
-- **Frontend**: HTML5, CSS3, JavaScript, Bootstrap
+- **Frontend**: HTML5, CSS3,  Bootstrap, JavaScript, and Ajax.
 - **Backend**: PHP
 - **Database**: MySQL
 - **Version Control**: Git 
