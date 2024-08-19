@@ -3,8 +3,8 @@ include('db_connect.php');
 
  $rid = '';
 
-$calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ; 
- $calc_days =floor($calc_days / (60*60*24)  );
+ $calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ; 
+ $calc_days = floor($calc_days / (60*60*24)  );
 ?>
 
 <!---*** room booked notification ***--->
@@ -64,7 +64,7 @@ $calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ;
     toast.text(message);
     toast.removeClass('success error'); // Remove previous type classes
     toast.addClass(type); // Add the new type class
-    toast.fadeIn().delay(6000).fadeOut(); // Show for 6 seconds
+    toast.fadeIn().delay(8000).fadeOut(); // Show for 8 seconds
     }
 
 	$('#manage-check').submit(function(e){
@@ -81,7 +81,7 @@ $calc_days = abs(strtotime($_GET['out']) - strtotime($_GET['in'])) ;
                 setTimeout(function(){
                     end_load();
                     $('.modal').modal('hide');
-                }, 8000);
+                }, 8000); /// display fro 8 seconds
             }
         }
     });

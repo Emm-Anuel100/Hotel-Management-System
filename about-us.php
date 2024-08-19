@@ -171,13 +171,13 @@
                     </div>
                     <div class="col-lg-5 offset-lg-1">
                         <ul class="ap-services">
-                            <li><i class="icon_check"></i> 20% Off On Accommodation.</li>
+                            <li><i class="icon_check"></i> 10% Off On Accommodation.</li>
                             <li><i class="icon_check"></i> Complimentary Daily Breakfast</li>
                             <li><i class="icon_check"></i> Kids Playground</li>
                             <li><i class="icon_check"></i> Free Wifi.</li>
                             <li><i class="icon_check"></i> Viewing Center</li>
                             <li><i class="icon_check"></i> Gym</li>
-                            <li><i class="icon_check"></i> Football pitch</li>
+                            <li><i class="icon_check"></i> Night Life</li>
                             <li><i class="icon_check"></i> Swimming pool and more.</li>
                         </ul>
                     </div>
@@ -310,7 +310,7 @@
                         </div>
                         <div class="col-lg-3 offset-lg-1">
                             <div class="ft-newslatter">
-                                <h6>New latest</h6>
+                                <h6>Newsletter</h6>
                                 <p>Get the latest updates and offers.</p>
                                 <form action="#" class="fn-form">
                                     <input type="email" placeholder="Email ..." required>

@@ -43,8 +43,8 @@
 					<div class="card-footer">
 						<div class="row">
 							<div class="col-md-12" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap">
-							<button class="btn btn-primary" style="width: 6rem;"> Save</button>
-                     <button class="btn btn-danger" type="button" onclick="$('#manage-room').get(0).reset()" style="width: 6rem;"> Cancel</button>
+							<button class="btn btn-primary" style="width: 6rem;"> Add</button>
+                     <button class="btn btn-danger" type="button" onclick="$('#manage-room').get(0).reset()" style="width: 6rem;"> Clear</button>
 							</div>
 						</div>
 					</div>

@@ -1,3 +1,4 @@
+
 <style>
 	.logo {
     margin: auto;
@@ -30,9 +31,8 @@
         <large><b><?php echo $_SESSION['setting_hotel_name']; ?></b></large>
       </div>
 	  	<div class="col-md-2 float-right text-white login-name">
-	  		<a href="ajax.php?action=logout" class="text-white"><?php echo $_SESSION['login_name'] ?> <i class="fa fa-power-off"></i></a>
+	  		<a href="ajax.php?action=logout" class="text-white" title="Logout"><?php echo $_SESSION['login_name'] ?> <i class="fa fa-power-off"></i></a>
 	    </div>
     </div>
   </div>
-  
 </nav>
