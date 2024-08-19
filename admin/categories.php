@@ -32,9 +32,9 @@
 							
 					<div class="card-footer">
 						<div class="row">
-							<div class="col-md-12">
-								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3"> Add</button>
-								<button class="btn btn-sm btn-default col-sm-3" type="button" onclick="$('#manage-category').get(0).reset()"> Clear</button>
+							<div class="col-md-12" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap">
+								<button class="btn btn-primary"> Add</button>
+								<button class="btn btn-danger" type="button" onclick="$('#manage-category').get(0).reset()"> Clear</button>
 							</div>
 						</div>
 					</div>

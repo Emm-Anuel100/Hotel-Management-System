@@ -566,7 +566,7 @@
                         </div>
                         <div class="col-lg-3 offset-lg-1">
                             <div class="ft-newslatter">
-                                <h6>New latest</h6>
+                                <h6>Newsletter</h6>
                                 <p>Get the latest updates and offers.</p>
                                 <form action="#" class="fn-form">
                                     <input type="email" placeholder="Email ..." required>

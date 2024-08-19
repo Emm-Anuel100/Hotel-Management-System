@@ -108,7 +108,7 @@ if ($result->num_rows > 0) {
             <div class="col-lg-12">
                 <div class="card col-md-4 offset-2 bg-info float-left">
                     <div class="card-body text-white">
-                        <h4 class="item">Staffs: <b><?php echo $staff_count; ?></b></h4>
+                        <h4 class="item">Staff: <b><?php echo $staff_count; ?></b></h4>
                         <hr>
                         <span class="card-icon"><i class="fa fa-users"></i></span>
                     </div>
