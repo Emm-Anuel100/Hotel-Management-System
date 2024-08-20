@@ -164,20 +164,19 @@
                     <div class="col-lg-6">
                         <div class="ap-title">
                             <h2>Welcome To Sona.</h2>
-                            <p>Built in 1910 during the Belle Epoque period, this hotel is located in the center of
-                                Paris, with easy access to the city’s tourist attractions. It offers tastefully
-                                decorated rooms.</p>
+                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatem aliquid culpa illo commodi libero,
+                               numquam fugit voluptate optio eius neque cupiditate nihil dolores beatae.</p>
                         </div>
                     </div>
                     <div class="col-lg-5 offset-lg-1">
                         <ul class="ap-services">
                             <li><i class="icon_check"></i> 10% Off On Accommodation.</li>
-                            <li><i class="icon_check"></i> Complimentary Daily Breakfast</li>
                             <li><i class="icon_check"></i> Kids Playground</li>
                             <li><i class="icon_check"></i> Free Wifi.</li>
                             <li><i class="icon_check"></i> Viewing Center</li>
+                            <li><i class="icon_check"></i> Bar</li>
                             <li><i class="icon_check"></i> Gym</li>
-                            <li><i class="icon_check"></i> Night Life</li>
+                            <li><i class="icon_check"></i> Night Club</li>
                             <li><i class="icon_check"></i> Swimming pool and more.</li>
                         </ul>
                     </div>

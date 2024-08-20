@@ -51,7 +51,7 @@
 				</div>
 			</form>
 			</div>
-			<!-- FORM Panel -->
+			<!-- Form Panel -->
 
 			<!-- Table Panel -->
 			<div class="col-md-8">

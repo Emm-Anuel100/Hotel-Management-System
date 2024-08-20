@@ -194,7 +194,7 @@
 			 ?>
                 <div class="col-lg-4 col-md-6">
                     <div class="room-item">
-                    <img src="assets/img/<?php echo $cat_arr[$row['category_id']]['cover_img'] ?>" alt="Category image" loading="lazy" class="category-img">
+                    <img src="assets/img/<?= $cat_arr[$row['category_id']]['cover_img'] ?>" alt="Category image" loading="lazy" class="category-img">
                         <div class="ri-text">
                             <h4 class="room-category"><?= $cat_arr[$row['category_id']]['name'] ?></h4>
                             <h3><?= '&#8358; '.number_format($cat_arr[$row['category_id']]['price'],2) ?><span>/Pernight</span></h3>
@@ -202,7 +202,7 @@
                                 <tbody>
                                     <tr>
                                         <td class="r-o">Capacity:</td>
-                                        <td>Max. person 3</td>
+                                        <td>Max. person <?= $cat_arr[$row['category_id']]['capacity'] ?></td>
                                     </tr>
                                     <tr>
                                         <td class="r-o">Services:</td>
@@ -210,7 +210,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <a href="#" class="primary-btn book_now" data-id="<?php echo $row['category_id'] ?>">Book Now</a>
+                            <a href="#" class="primary-btn book_now" data-id="<?= $row['category_id'] ?>">Book Now</a>
                         </div>
                     </div>
                 </div>
