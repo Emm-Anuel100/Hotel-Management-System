@@ -19,7 +19,11 @@
 							</div>
 							<div class="form-group">
 								<label class="control-label">Price:</label>
-								<input type="number" class="form-control text-right" name="price" step="any">
+								<input type="number" class="form-control text-right" name="price" step="1" min="1">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Capacity (max.)</label>
+								<input type="number" class="form-control text-right" name="capacity" step="1" min="1">
 							</div>
 							<div class="form-group">
 								<label for="" class="control-label">Image:</label>
@@ -54,6 +58,7 @@
 									<th class="text-center">Image</th>
 									<th class="text-center">Category</th>
 									<th class="text-center">Room price</th>
+									<th class="text-center">Capacity (max.)</th>
 									<th class="text-center">Action</th>
 								</tr>
 							</thead>
@@ -70,10 +75,13 @@
 										<img src="<?php echo isset($row['cover_img']) ? '../assets/img/'.$row['cover_img'] :'' ?>" alt="room category image" id="cimg">
 									</td>
 									<td class="">
-										<p>Name : <b><?php echo $row['name'] ?></b></p>
+										<p> <b><?php echo $row['name'] ?></b></p>
 									</td>
 									<td class="">
-										<p>Price : <b><?php echo "&#8358;".number_format($row['price'],2) ?></b></p>
+										<p> <b><?php echo "&#8358;".number_format($row['price'],2) ?></b></p>
+									</td>
+									<td class="">
+										<p> <b><?php echo number_format($row['capacity']) ?></b></p>
 									</td>
 									<td class="text-center">
 										<button class="btn btn-sm btn-primary edit_cat" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-price="<?php echo $row['price'] ?>" data-cover_img="<?php echo $row['cover_img'] ?>">Edit price</button>
@@ -89,17 +97,20 @@
 			<!-- Table Panel -->
 		</div>
 	</div>	
-
 </div>
+
 <style>
-	img#cimg,.cimg{
+	img#cimg,
+	.cimg{
 		max-height: 10vh;
 		max-width: 6vw;
 	}
 	td{
 		vertical-align: middle !important;
+		text-align: center;
 	}
 </style>
+
 <script>
 	function displayImg(input,_this) {
 	    if (input.files && input.files[0]) {
