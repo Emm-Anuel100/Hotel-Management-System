@@ -11,7 +11,7 @@ include('db_connect.php');
 		<div class="row">
 			<!-- FORM Panel -->
 			<div class="col-md-4">
-			<form action="#" id="manage-category">
+			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" id="manage-category">
 				<div class="card">
 					<div class="card-header">
 						Add Room Category
@@ -89,7 +89,7 @@ include('db_connect.php');
 									</td>
 									<td class="">
 										<p>
-									    <form action="http://localhost/hotel-ui/admin/index.php?page=categories" method="POST">
+									    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" method="POST">
 											<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 											<input type="number" name="category_price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
 											<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none;">
@@ -97,7 +97,13 @@ include('db_connect.php');
 										</p>
 									</td>
 									<td class="">
-										<p><?php echo number_format($row['capacity']) ?></p>
+										<p>
+										 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" method="POST">
+										   <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+											<input type="number" name="capacity" placeholder="<?php echo number_format($row['capacity']) ?>" style="width: 3rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+											<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 76px; background: #75ADE5; border: none;">
+										 </form>
+										</p>
 									</td>
 									<td class="">
 									<p>
@@ -196,8 +202,7 @@ if (isset($_POST['category_price'])) {
 	}
 }	
 
-
-//** Script to updating of services */
+//** Script for updating services */
 //** if services data is set */
 if (isset($_POST['category_services'])) {
   
@@ -254,6 +259,63 @@ if (isset($_POST['category_services'])) {
 	}
 }	
 
+
+/** Script for updating capacity */
+//** if capacity data is set */
+if (isset($_POST['capacity'])) {
+  
+	// Get the new capacity from the form
+	$new_capacity = mysqli_real_escape_string($conn, $_POST['capacity']);
+	$id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the id from the form
+
+	// Ensure $new_capacity is valid 
+	if ($new_capacity) {
+		 // Update the capacity column in the database
+		 $sql = "UPDATE room_categories SET capacity = ? WHERE id = ?";
+
+		 // Prepare the statement to prevent SQL injection
+		 $stmt = $conn->prepare($sql);
+		 $stmt->bind_param("ii", $new_capacity, $id); 
+
+		 // Execute the statement
+		 if ($stmt->execute()) {
+			//   echo "Services capacity successfully!";
+			echo "<script>
+			Swal.fire({
+				 icon: 'success',
+				 title: 'Success!',
+				 text: 'Capacity updated successfully!',
+				 confirmButtonText: 'OK'
+				}).then((result) => {
+				 if (result.isConfirmed) {
+					window.location.href = 'http://localhost/hotel-ui/admin/index.php?page=categories'; 
+				 }
+			});
+	   </script>";
+		 } else {
+			echo "<script>
+			Swal.fire({
+				 icon: 'error',
+				 title: 'Error!',
+				 text: 'There was an error updating capacity.',
+				 confirmButtonText: 'OK'
+			});
+	     </script>";
+		 }
+
+		// Close the statement
+      $stmt->close();
+	  } else {
+		echo "<script>
+		Swal.fire({
+			 icon: 'warning',
+			 title: 'Invalid Input',
+			 text: 'Please enter a valid data ',
+			 confirmButtonText: 'OK'
+		});
+     </script>";
+	}
+}	
 ?>
 <!--/ PHP script for data updates -->
 

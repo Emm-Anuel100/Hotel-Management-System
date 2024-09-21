@@ -7,7 +7,6 @@
        <meta name="keywords" content="Sona, unica, creative, html">
        <meta http-equiv="X-UA-Compatible" content="ie=edge">
        <link rel="shortcut icon" href="./img/flag.jpg" type="image/x-icon">
-       <title></title>
 
        <!-- Google Font -->
        <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">
@@ -24,6 +23,9 @@
        <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
        <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
        <link rel="stylesheet" href="css/style.css" type="text/css">
+
+       <!-- Include SweetAlert2 JS -->
+       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
        <!-- Third party plugin CSS-->
        <link href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />

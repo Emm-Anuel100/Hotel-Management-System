@@ -12,7 +12,6 @@ The **Hotel Management System** is a comprehensive software solution designed to
 - **Check-In/Check-Out**: Streamline the check-in and check-out process for guests.
 - **User Roles**: Admin, staff, and customer roles with specific permissions.
 - **Reporting**: Generate detailed reports on bookings.
-- **Multi-Language Support**: Available in multiple languages for global accessibility.
 - **Responsive Design**: Optimized for use on desktops, tablets, and mobile devices.
 
 ## Technologies Used
@@ -20,7 +19,7 @@ The **Hotel Management System** is a comprehensive software solution designed to
 - **Frontend**: HTML5, CSS3,  Bootstrap, JavaScript, and Ajax.
 - **Backend**: PHP
 - **Database**: MySQL
-- **Version Control**: Git 
+- **Version Control**: Git/Github
 
 ## Installation
 

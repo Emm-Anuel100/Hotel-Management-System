@@ -30,10 +30,9 @@ include('db_connect.php');
 
 <div class="container-fluid">
 	
-	<form action="" id="manage-check">
+	<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" id="manage-check">
 		<input type="hidden" name="cid" value="<?php echo isset($_GET['cid']) ? $_GET['cid']: '' ?>">
 		<input type="hidden" name="rid" value="<?php echo isset($_GET['rid']) ? $_GET['rid']: '' ?>">
-
 
 		<div class="form-group">
 			<label for="name">Fullname:</label>
@@ -41,7 +40,11 @@ include('db_connect.php');
 		</div>
 		<div class="form-group">
 			<label for="contact">Phone:</label>
-			<input type="text" name="contact" id="contact" class="form-control" value="<?php echo isset($meta['contact_no']) ? $meta['contact_no']: '' ?>" required>
+			<input type="number" name="contact" id="contact" class="form-control" value="<?php echo isset($meta['contact_no']) ? $meta['contact_no']: '' ?>" required>
+		</div>
+        <div class="form-group">
+			<label for="email">Email:</label>
+			<input type="email" name="email" id="email" class="form-control"  required>
 		</div>
 		<div class="form-group">
 			<label for="date_in">Check-in Date:</label>
@@ -64,7 +67,7 @@ include('db_connect.php');
     toast.text(message);
     toast.removeClass('success error'); // Remove previous type classes
     toast.addClass(type); // Add the new type class
-    toast.fadeIn().delay(8000).fadeOut(); // Show for 8 seconds
+    // toast.fadeIn().delay(8000).fadeOut(); // Show for 8 seconds
     }
 
 	$('#manage-check').submit(function(e){
@@ -78,10 +81,10 @@ include('db_connect.php');
             var resp = JSON.parse(response);
             if (resp.id > 0) {
                 alert_toast("Room booked your reference No: " + resp.ref_no, 'success');
-                setTimeout(function(){
-                    end_load();
-                    $('.modal').modal('hide');
-                }, 8000); /// display fro 8 seconds
+                // setTimeout(function(){
+                //     end_load();
+                //     $('.modal').modal('hide');
+                // }, 8000); /// display fro 8 seconds
             }
         }
     });

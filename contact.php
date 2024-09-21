@@ -151,7 +151,7 @@
                             <tbody>
                                 <tr>
                                     <td class="c-o">Address:</td>
-                                    <td>Plot DD34, kings Avenue Lekki Lagos Nigeria.</td>
+                                    <td>Plot DD34, kings Avenue Wuse Abuja Nigeria.</td>
                                 </tr>
                                 <tr>
                                     <td class="c-o">Phone:</td>
@@ -167,18 +167,16 @@
                 </div>
 
                 <div class="col-lg-7 offset-lg-1 contact-form-wrapper" style="bottom: 1.4rem; position:relative">
-                    <!--*** message sent notification ***-->
-                    <h5 style="font-size: 15.2px; color: lightslategrey; margin: 25px 0">message sent!</h5>
-                    <form action="#" class="contact-form">
+                <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" method="post" class="contact-form">
                         <div class="row">
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Your Name" autocomplete="off" required>
+                                <input type="text" name="name" placeholder="Your Name ..." autocomplete="off" required>
                             </div>
                             <div class="col-lg-6">
-                                <input type="text" placeholder="Your Email" autocomplete="off" required>
+                                <input type="text" name="email" placeholder="Your Email ..." autocomplete="off" required>
                             </div>
                             <div class="col-lg-12">
-                                <textarea placeholder="Your Message" required></textarea>
+                                <textarea name="message" placeholder="Your Message ..." required></textarea>
                                 <button type="submit">Submit</button>
                             </div>
                         </div>
@@ -186,22 +184,26 @@
                 </div>
             </div>
             <div class="map">
-                <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.0606825994123!2d-72.8735845851828!3d40.760690042573295!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e85b24c9274c91%3A0xf310d41b791bcb71!2sWilliam%20Floyd%20Pkwy%2C%20Mastic%20Beach%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1578582744646!5m2!1sen!2sbd"
-                    height="470" style="border:0;" allowfullscreen=""></iframe>
+             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3447.453724039318!2d7.463476309913093!3d9.068582890956748!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b1df05c451b%3A0x37e4050547e1366b!2sWuse%20Market%20Rd%2C%20Wuse%2C%20Abuja%20904101%2C%20Federal%20Capital%20Territory!5e1!3m2!1sen!2sng!4v1726952348722!5m2!1sen!2sng" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </section>
     <!-- Contact Section End -->
 
-        <!-- Search model Begin -->
-         <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-         <div class="search-close-switch"><i class="icon_close"></i></div>
-            <form class="search-model-form">
-                <input type="text" id="search-input" placeholder="Search here ..." autocomplete="off">
-            </form>
-        </div>
+    <!-- Footer -->
+    <?php
+      include('./footer.php')
+    ?>
+    <!--/ Footer -->
+
+    <!-- Search model Begin -->
+        <div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch"><i class="icon_close"></i></div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here ..." autocomplete="off">
+        </form>
+    </div>
     </div>
     <!-- Search model end -->
 
@@ -216,3 +218,48 @@
     <script src="js/main.js"></script>
 </body>
 </html>
+
+
+<?php
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['name'])) {
+
+    // Get the submitted form data
+    $name = mysqli_real_escape_string($conn, $_POST['name']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $message = mysqli_real_escape_string($conn, $_POST['message']);
+
+    // Prepare the SQL statement to insert the form data into the contact_messages table
+    $sql = "INSERT INTO contact (name, email, message) VALUES (?, ?, ?)";
+
+    // Prepare statement to prevent SQL injection
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("sss", $name, $email, $message); 
+
+    // Execute the statement
+    if ($stmt->execute()) {
+        // Success: Show SweetAlert for success
+        echo "<script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: 'Your message has been sent successfully!',
+                confirmButtonText: 'OK'
+            });
+        </script>";
+    } else {
+        // Error: Show SweetAlert for error
+        echo "<script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: 'There was an error sending your message. Please try again.',
+                confirmButtonText: 'OK'
+            });
+        </script>";
+    }
+
+    // Close statement 
+    $stmt->close();
+}
+?>

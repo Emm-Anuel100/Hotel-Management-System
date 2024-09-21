@@ -88,10 +88,11 @@ Class Action {
 		$data = " name = '$name' ";
 		$data .= ", price = '$price' ";
 		$data .= ", capacity = '$capacity' ";
+		$data .= ", services = '$services' ";
 		if($_FILES['img']['tmp_name'] != ''){
-						$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
-						$move = move_uploaded_file($_FILES['img']['tmp_name'],'../assets/img/'. $fname);
-					$data .= ", cover_img = '$fname' ";
+				$fname = strtotime(date('y-m-d H:i')).'_'.$_FILES['img']['name'];
+				$move = move_uploaded_file($_FILES['img']['tmp_name'],'../assets/img/'. $fname);
+				$data .= ", cover_img = '$fname' ";
 		}
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO room_categories set ".$data);
@@ -195,6 +196,7 @@ Class Action {
 			 // Return reference number and ID as JSON
 			 return json_encode(['id' => $id, 'ref_no' => $ref]);
 		}
+		
 		return false;
   }  
 
