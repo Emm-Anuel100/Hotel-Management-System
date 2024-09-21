@@ -225,7 +225,7 @@ if (isset($_POST['category_services'])) {
 				 confirmButtonText: 'OK'
 				}).then((result) => {
 				 if (result.isConfirmed) {
-					  window.location.href = 'http://localhost/hotel-ui/admin/index.php?page=categories'; 
+					window.location.href = 'http://localhost/hotel-ui/admin/index.php?page=categories'; 
 				 }
 			});
 	   </script>";
