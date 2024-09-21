@@ -1,34 +1,6 @@
 <?php 
 
 include('db_connect.php');
-
-// Assuming you're using a POST request and have database connection in place
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_price'])) {
-  
-    // Get the new price from the form
-    $new_price = mysqli_real_escape_string($conn, $_POST['price']);
-    $id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the id from the form
-
-    // Ensure $new_price is a valid number and $id is valid
-    if (is_numeric($new_price) && $new_price > 0) {
-        // Update the price column in the database
-        $sql = "UPDATE room_categories SET price = ? WHERE id = ?";
-
-        // Prepare the statement to prevent SQL injection
-        $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ii", $new_price, $id); 
-
-        // Execute the statement
-        if ($stmt->execute()) {
-            echo "Price updated successfully!";
-        } else {
-            echo "Error: " . $stmt->error;
-        }
-      } else {
-        echo "Invalid price or id.";
-    }
-
-}	
 ?>
 
 
@@ -117,9 +89,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_price'])) {
 									</td>
 									<td class="">
 										<p>
-									    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+									    <form action="http://localhost/hotel-ui/admin/index.php?page=categories" method="POST">
 											<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
-											<input type="number" name="product_price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+											<input type="number" name="category_price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
 											<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none;">
 										  </form>
 										</p>
@@ -129,7 +101,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_price'])) {
 									</td>
 									<td class="">
 									<p>
-									<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+									<form action="http://localhost/hotel-ui/admin/index.php?page=categories" method="POST">
+										<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 										<input type="text" name="category_services" placeholder="<?php echo ($row['services']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
 										<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none; color: #fff">
 									</form>	
@@ -162,6 +135,121 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_price'])) {
 		text-align: center;
 	}
 </style>
+
+
+
+<!-- PHP script for data updates -->
+<?php
+//** if category price value is set */
+if (isset($_POST['category_price'])) {
+  
+	// Get the new price from the form
+	$new_price = mysqli_real_escape_string($conn, $_POST['category_price']);
+	$id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the id from the form
+
+	// Ensure $new_price is a valid number and $id is valid
+	if (is_numeric($new_price) && $new_price > 0) {
+		 // Update the price column in the database
+		 $sql = "UPDATE room_categories SET price = ? WHERE id = ?";
+
+		 // Prepare the statement to prevent SQL injection
+		 $stmt = $conn->prepare($sql);
+		 $stmt->bind_param("ii", $new_price, $id); 
+
+		 // Execute the statement
+		 if ($stmt->execute()) {
+			//   echo "Price updated successfully!";
+			echo "<script>
+			  Swal.fire({
+				 icon: 'success',
+				 title: 'Success!',
+				 text: 'Price updated successfully!',
+				 confirmButtonText: 'OK'
+			});
+	     </script>";
+		 } else {
+			echo "<script>
+			Swal.fire({
+				 icon: 'error',
+				 title: 'Error!',
+				 text: 'There was an error updating the price.',
+				 confirmButtonText: 'OK'
+			});
+	     </script>";
+		 }
+
+		// Close the statement
+      $stmt->close();
+	  } else {
+		echo "<script>
+		Swal.fire({
+			 icon: 'warning',
+			 title: 'Invalid Input',
+			 text: 'Please enter a valid price greater than 0.',
+			 confirmButtonText: 'OK'
+		});
+     </script>";
+	}
+}	
+
+
+//** Script to updating of services */
+//** if services data is set */
+if (isset($_POST['category_services'])) {
+  
+	// Get the new services from the form
+	$new_services = mysqli_real_escape_string($conn, $_POST['category_services']);
+	$id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the id from the form
+
+	// Ensure $new_services is valid 
+	if ($new_services) {
+		 // Update the services column in the database
+		 $sql = "UPDATE room_categories SET services = ? WHERE id = ?";
+
+		 // Prepare the statement to prevent SQL injection
+		 $stmt = $conn->prepare($sql);
+		 $stmt->bind_param("si", $new_services, $id); 
+
+		 // Execute the statement
+		 if ($stmt->execute()) {
+			//   echo "Services updated successfully!";
+			echo "<script>
+			  Swal.fire({
+				 icon: 'success',
+				 title: 'Success!',
+				 text: 'Services updated successfully!',
+				 confirmButtonText: 'OK'
+			});
+	     </script>";
+		 } else {
+			echo "<script>
+			Swal.fire({
+				 icon: 'error',
+				 title: 'Error!',
+				 text: 'There was an error updating services.',
+				 confirmButtonText: 'OK'
+			});
+	     </script>";
+		 }
+
+		// Close the statement
+      $stmt->close();
+	  } else {
+		echo "<script>
+		Swal.fire({
+			 icon: 'warning',
+			 title: 'Invalid Input',
+			 text: 'Please enter a valid data ',
+			 confirmButtonText: 'OK'
+		});
+     </script>";
+	}
+}	
+
+?>
+<!--/ PHP script for data updates -->
+
+
 
 <script>
 	function displayImg(input,_this) {
