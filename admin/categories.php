@@ -160,13 +160,17 @@ if (isset($_POST['category_price'])) {
 		 if ($stmt->execute()) {
 			//   echo "Price updated successfully!";
 			echo "<script>
-			  Swal.fire({
-				 icon: 'success',
-				 title: 'Success!',
-				 text: 'Price updated successfully!',
-				 confirmButtonText: 'OK'
-			});
-	     </script>";
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Price updated successfully!',
+                    confirmButtonText: 'OK'
+                   }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'http://localhost/hotel-ui/admin/index.php?page=categories'; 
+                    }
+                });
+            </script>";
 		 } else {
 			echo "<script>
 			Swal.fire({
@@ -214,13 +218,17 @@ if (isset($_POST['category_services'])) {
 		 if ($stmt->execute()) {
 			//   echo "Services updated successfully!";
 			echo "<script>
-			  Swal.fire({
+			Swal.fire({
 				 icon: 'success',
 				 title: 'Success!',
 				 text: 'Services updated successfully!',
 				 confirmButtonText: 'OK'
+				}).then((result) => {
+				 if (result.isConfirmed) {
+					  window.location.href = 'http://localhost/hotel-ui/admin/index.php?page=categories'; 
+				 }
 			});
-	     </script>";
+	   </script>";
 		 } else {
 			echo "<script>
 			Swal.fire({
