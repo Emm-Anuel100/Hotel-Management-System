@@ -17,16 +17,8 @@ while($row = $room->fetch_assoc()){
 ?>
 
 <div class="container-fluid">
-<h4 class="refresh"><i class="fas fa-refresh"></i> Refresh</h4> <br/>
-
 
 <style> 
- h4.refresh{
-    cursor: pointer;
-    margin-top: 20px;
-    margin-left: 40px;
-    font-size: 16px;
-   }
 	tr,th{
 	text-align: center;
    }
@@ -49,12 +41,13 @@ while($row = $room->fetch_assoc()){
                             <tbody>
                                 <?php 
                                 $i = 1;
-                                $checked = $conn->query("SELECT * FROM checked WHERE status != 0 ORDER BY status DESC, id ASC");
+                                // $checked = $conn->query("SELECT * FROM checked WHERE status != 0 ORDER BY id DESC, status ASC");
+                                $checked = $conn->query("SELECT * FROM checked WHERE status != 0 ORDER BY status ASC, date_updated DESC");
                                 while($row = $checked->fetch_assoc()): 
 
                                     // Initialize variables
-                                    $category_name = '.....';
-                                    $room_name = '.....';
+                                    $category_name = '...';
+                                    $room_name = '...';
 
                                     // Check if the room_id exists in $room_arr
                                     if (isset($room_arr[$row['room_id']])) {
