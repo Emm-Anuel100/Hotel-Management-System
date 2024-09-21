@@ -176,6 +176,7 @@ Class Action {
 		$data = " booked_cid = '$cid' ";
 		$data .= ", name = '$name' ";
 		$data .= ", contact_no = '$contact' ";
+		$data .= ", email = '$email' ";
 		$data .= ", status = 0 ";
   
 		$data .= ", date_in = '".$date_in.' '.$date_in_time."' ";

@@ -44,7 +44,7 @@ include('db_connect.php');
 		</div>
         <div class="form-group">
 			<label for="email">Email:</label>
-			<input type="email" name="email" id="email" class="form-control"  required>
+			<input type="email" name="email" id="email" class="form-control" value="<?php echo isset($meta['email']) ? $meta['email']: '' ?>" required>
 		</div>
 		<div class="form-group">
 			<label for="date_in">Check-in Date:</label>

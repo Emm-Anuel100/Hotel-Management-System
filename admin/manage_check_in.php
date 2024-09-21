@@ -59,6 +59,10 @@ if (isset($_GET['id'])) {
             <input type="text" name="contact" id="contact" class="form-control" value="<?php echo isset($meta['contact_no']) ? htmlspecialchars($meta['contact_no']) : '' ?>" required>
         </div>
         <div class="form-group">
+            <label for="mail">Email:</label>
+            <input type="text" name="email" id="email" class="form-control" value="<?php echo isset($meta['email']) ? htmlspecialchars($meta['email']) : '' ?>" required>
+        </div>
+        <div class="form-group">
             <label for="date_in">Check-in Date:</label>
             <input type="date" name="date_in" id="date_in" class="form-control" value="<?php echo isset($meta['date_in']) ? date("Y-m-d", strtotime($meta['date_in'])) : date("Y-m-d") ?>" required>
         </div>
