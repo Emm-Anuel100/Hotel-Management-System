@@ -3,24 +3,20 @@
 include('db_connect.php');
 
 // Assuming you're using a POST request and have database connection in place
-if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['price']) {
-    // Connect to your database (replace with your actual database credentials)
-    $conn = new mysqli("localhost", "username", "password", "database_name");
-
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['product_price'])) {
+  
     // Get the new price from the form
     $new_price = mysqli_real_escape_string($conn, $_POST['price']);
-    
-    // Ensure $new_price is a valid number
+    $id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the id from the form
+
+    // Ensure $new_price is a valid number and $id is valid
     if (is_numeric($new_price) && $new_price > 0) {
-        // Assuming you have an ID or unique identifier for the row you're updating
-        $id = $row['id']; // This would be dynamically generated in your actual code
-        
         // Update the price column in the database
         $sql = "UPDATE room_categories SET price = ? WHERE id = ?";
 
         // Prepare the statement to prevent SQL injection
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("di", $new_price, $id); // "di" means double (for price) and integer (for id)
+        $stmt->bind_param("ii", $new_price, $id); 
 
         // Execute the statement
         if ($stmt->execute()) {
@@ -28,15 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['price']) {
         } else {
             echo "Error: " . $stmt->error;
         }
-
-        // Close statement and connection
-        $stmt->close();
-    } else {
-        echo "Invalid price entered.";
+      } else {
+        echo "Invalid price or id.";
     }
 
-    $conn->close();
-}
+}	
 ?>
 
 
@@ -47,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['price']) {
 		<div class="row">
 			<!-- FORM Panel -->
 			<div class="col-md-4">
-			<form action="" id="manage-category">
+			<form action="#" id="manage-category">
 				<div class="card">
 					<div class="card-header">
 						Add Room Category
@@ -125,9 +117,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['price']) {
 									</td>
 									<td class="">
 										<p>
-										  <form action="/" method="post">
-											  <input type="number" name="price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
-											  <input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none;">
+									    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+											<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+											<input type="number" name="product_price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+											<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none;">
 										  </form>
 										</p>
 									</td>
@@ -136,10 +129,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['price']) {
 									</td>
 									<td class="">
 									<p>
-										<form action="/" method="post">
-										  <input type="text" name="services" placeholder="<?php echo ($row['services']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
-										  <input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none; color: #fff">
-										</form>	
+									<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+										<input type="text" name="category_services" placeholder="<?php echo ($row['services']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+										<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none; color: #fff">
+									</form>	
 									</p>
 									</td>
 									<!-- <td class="text-center">
