@@ -26,8 +26,12 @@
 								<input type="number" class="form-control text-right" name="capacity" step="1" min="1">
 							</div>
 							<div class="form-group">
+								<label class="control-label">Services (seperate with comas)</label>
+								<textarea class="form-control text-right" name="services" style="min-height: 100px; max-height: 200px;"></textarea>
+							</div>
+							<div class="form-group">
 								<label for="" class="control-label">Image:</label>
-								<input type="file" class="form-control" name="img" onchange="displayImg(this,$(this))">
+								<input type="file" class="form-control" name="img" onchange="displayImg(this,$(this))" accept=".jpg, .png, .jpeg">
 							</div>
 							<div class="form-group">
 								<img src="<?php echo isset($image_path) ? '../assets/img/'.$cover_img :'' ?>" alt="" id="cimg">
@@ -37,7 +41,7 @@
 					<div class="card-footer">
 						<div class="row">
 							<div class="col-md-12" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap">
-								<button class="btn btn-primary"> Add</button>
+								<button class="btn btn-primary">Add</button>
 								<button class="btn btn-danger" type="button" onclick="$('#manage-category').get(0).reset()"> Clear</button>
 							</div>
 						</div>
@@ -57,9 +61,10 @@
 									<th class="text-center">S/N</th>
 									<th class="text-center">Image</th>
 									<th class="text-center">Category</th>
-									<th class="text-center">Room price</th>
-									<th class="text-center">Capacity (max.)</th>
-									<th class="text-center">Action</th>
+									<th class="text-center">Price (&#8358;)</th>
+									<th class="text-center">Capacity</th>
+									<th class="text-center">Services</th>
+									<!-- <th class="text-center">Action</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -75,18 +80,26 @@
 										<img src="<?php echo isset($row['cover_img']) ? '../assets/img/'.$row['cover_img'] :'' ?>" alt="room category image" id="cimg">
 									</td>
 									<td class="">
-										<p> <b><?php echo $row['name'] ?></b></p>
+										<p> <?php echo $row['name'] ?></p>
 									</td>
 									<td class="">
-										<p> <b><?php echo "&#8358;".number_format($row['price'],2) ?></b></p>
+										<p>
+										  <form action="/" method="post">
+											  <input type="number" name="price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem" min="1" required> <br>
+											  <input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px">
+										  </form>
+										</p>
 									</td>
 									<td class="">
-										<p> <b><?php echo number_format($row['capacity']) ?></b></p>
+										<p><?php echo number_format($row['capacity']) ?></p>
 									</td>
-									<td class="text-center">
+									<td class="">
+										<p><?php echo ($row['services']) ?></p>
+									</td>
+									<!-- <td class="text-center">
 										<button class="btn btn-sm btn-primary edit_cat" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-price="<?php echo $row['price'] ?>" data-cover_img="<?php echo $row['cover_img'] ?>">Edit price</button>
-										<!-- <button class="btn btn-sm btn-danger delete_cat" type="button" data-id="<?php echo $row['id'] ?>">Delete</button> -->
-									</td>
+										<button class="btn btn-sm btn-danger delete_cat" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
+									</td> -->
 								</tr>
 								<?php endwhile; ?>
 							</tbody>

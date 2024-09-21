@@ -206,7 +206,7 @@
                                     </tr>
                                     <tr>
                                         <td class="r-o">Services:</td>
-                                        <td>Wifi, Television, Bathroom, Kitchen</td>
+                                        <td><?= $cat_arr[$row['category_id']]['services'] ?></td>
                                     </tr>
                                 </tbody>
                             </table>

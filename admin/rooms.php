@@ -21,7 +21,7 @@
 								<label class="control-label">Category:</label>
 								<select class="custom-select browser-default" name="category_id">
 									<?php 
-									$cat = $conn->query("SELECT * FROM room_categories order by name asc ");
+									$cat = $conn->query("SELECT * FROM room_categories ORDER BY name ASC");
 									while($row= $cat->fetch_assoc()) {
 										$cat_name[$row['id']] = $row['name'];
 										?>
