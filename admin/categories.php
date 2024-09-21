@@ -1,4 +1,45 @@
-<?php include('db_connect.php');?>
+<?php 
+
+include('db_connect.php');
+
+// Assuming you're using a POST request and have database connection in place
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['price']) {
+    // Connect to your database (replace with your actual database credentials)
+    $conn = new mysqli("localhost", "username", "password", "database_name");
+
+    // Get the new price from the form
+    $new_price = mysqli_real_escape_string($conn, $_POST['price']);
+    
+    // Ensure $new_price is a valid number
+    if (is_numeric($new_price) && $new_price > 0) {
+        // Assuming you have an ID or unique identifier for the row you're updating
+        $id = $row['id']; // This would be dynamically generated in your actual code
+        
+        // Update the price column in the database
+        $sql = "UPDATE room_categories SET price = ? WHERE id = ?";
+
+        // Prepare the statement to prevent SQL injection
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("di", $new_price, $id); // "di" means double (for price) and integer (for id)
+
+        // Execute the statement
+        if ($stmt->execute()) {
+            echo "Price updated successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+
+        // Close statement and connection
+        $stmt->close();
+    } else {
+        echo "Invalid price entered.";
+    }
+
+    $conn->close();
+}
+?>
+
+
 
 <div class="container-fluid">
 	
@@ -85,8 +126,8 @@
 									<td class="">
 										<p>
 										  <form action="/" method="post">
-											  <input type="number" name="price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem" min="1" required> <br>
-											  <input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px">
+											  <input type="number" name="price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+											  <input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none;">
 										  </form>
 										</p>
 									</td>
@@ -94,7 +135,12 @@
 										<p><?php echo number_format($row['capacity']) ?></p>
 									</td>
 									<td class="">
-										<p><?php echo ($row['services']) ?></p>
+									<p>
+										<form action="/" method="post">
+										  <input type="text" name="services" placeholder="<?php echo ($row['services']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+										  <input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none; color: #fff">
+										</form>	
+									</p>
 									</td>
 									<!-- <td class="text-center">
 										<button class="btn btn-sm btn-primary edit_cat" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-price="<?php echo $row['price'] ?>" data-cover_img="<?php echo $row['cover_img'] ?>">Edit price</button>
