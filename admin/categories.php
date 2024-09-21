@@ -1,4 +1,9 @@
-<?php include('db_connect.php');?>
+<?php 
+
+include('db_connect.php');
+?>
+
+
 
 <div class="container-fluid">
 	
@@ -6,7 +11,7 @@
 		<div class="row">
 			<!-- FORM Panel -->
 			<div class="col-md-4">
-			<form action="" id="manage-category">
+			<form action="#" id="manage-category">
 				<div class="card">
 					<div class="card-header">
 						Add Room Category
@@ -26,8 +31,12 @@
 								<input type="number" class="form-control text-right" name="capacity" step="1" min="1">
 							</div>
 							<div class="form-group">
+								<label class="control-label">Services (seperate with comas)</label>
+								<textarea class="form-control text-right" name="services" style="min-height: 100px; max-height: 200px;"></textarea>
+							</div>
+							<div class="form-group">
 								<label for="" class="control-label">Image:</label>
-								<input type="file" class="form-control" name="img" onchange="displayImg(this,$(this))">
+								<input type="file" class="form-control" name="img" onchange="displayImg(this,$(this))" accept=".jpg, .png, .jpeg">
 							</div>
 							<div class="form-group">
 								<img src="<?php echo isset($image_path) ? '../assets/img/'.$cover_img :'' ?>" alt="" id="cimg">
@@ -37,7 +46,7 @@
 					<div class="card-footer">
 						<div class="row">
 							<div class="col-md-12" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap">
-								<button class="btn btn-primary"> Add</button>
+								<button class="btn btn-primary">Add</button>
 								<button class="btn btn-danger" type="button" onclick="$('#manage-category').get(0).reset()"> Clear</button>
 							</div>
 						</div>
@@ -57,9 +66,10 @@
 									<th class="text-center">S/N</th>
 									<th class="text-center">Image</th>
 									<th class="text-center">Category</th>
-									<th class="text-center">Room price</th>
-									<th class="text-center">Capacity (max.)</th>
-									<th class="text-center">Action</th>
+									<th class="text-center">Price (&#8358;)</th>
+									<th class="text-center">Capacity</th>
+									<th class="text-center">Services</th>
+									<!-- <th class="text-center">Action</th> -->
 								</tr>
 							</thead>
 							<tbody>
@@ -75,18 +85,33 @@
 										<img src="<?php echo isset($row['cover_img']) ? '../assets/img/'.$row['cover_img'] :'' ?>" alt="room category image" id="cimg">
 									</td>
 									<td class="">
-										<p> <b><?php echo $row['name'] ?></b></p>
+										<p> <?php echo $row['name'] ?></p>
 									</td>
 									<td class="">
-										<p> <b><?php echo "&#8358;".number_format($row['price'],2) ?></b></p>
+										<p>
+									    <form action="http://localhost/hotel-ui/admin/index.php?page=categories" method="POST">
+											<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+											<input type="number" name="category_price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+											<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none;">
+										  </form>
+										</p>
 									</td>
 									<td class="">
-										<p> <b><?php echo number_format($row['capacity']) ?></b></p>
+										<p><?php echo number_format($row['capacity']) ?></p>
 									</td>
-									<td class="text-center">
+									<td class="">
+									<p>
+									<form action="http://localhost/hotel-ui/admin/index.php?page=categories" method="POST">
+										<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+										<input type="text" name="category_services" placeholder="<?php echo ($row['services']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+										<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none; color: #fff">
+									</form>	
+									</p>
+									</td>
+									<!-- <td class="text-center">
 										<button class="btn btn-sm btn-primary edit_cat" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['name'] ?>" data-price="<?php echo $row['price'] ?>" data-cover_img="<?php echo $row['cover_img'] ?>">Edit price</button>
-										<!-- <button class="btn btn-sm btn-danger delete_cat" type="button" data-id="<?php echo $row['id'] ?>">Delete</button> -->
-									</td>
+										<button class="btn btn-sm btn-danger delete_cat" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
+									</td> -->
 								</tr>
 								<?php endwhile; ?>
 							</tbody>
@@ -110,6 +135,129 @@
 		text-align: center;
 	}
 </style>
+
+
+
+<!-- PHP script for data updates -->
+<?php
+//** if category price value is set */
+if (isset($_POST['category_price'])) {
+  
+	// Get the new price from the form
+	$new_price = mysqli_real_escape_string($conn, $_POST['category_price']);
+	$id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the id from the form
+
+	// Ensure $new_price is a valid number and $id is valid
+	if (is_numeric($new_price) && $new_price > 0) {
+		 // Update the price column in the database
+		 $sql = "UPDATE room_categories SET price = ? WHERE id = ?";
+
+		 // Prepare the statement to prevent SQL injection
+		 $stmt = $conn->prepare($sql);
+		 $stmt->bind_param("ii", $new_price, $id); 
+
+		 // Execute the statement
+		 if ($stmt->execute()) {
+			//   echo "Price updated successfully!";
+			echo "<script>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Price updated successfully!',
+                    confirmButtonText: 'OK'
+                   }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = 'http://localhost/hotel-ui/admin/index.php?page=categories'; 
+                    }
+                });
+            </script>";
+		 } else {
+			echo "<script>
+			Swal.fire({
+				 icon: 'error',
+				 title: 'Error!',
+				 text: 'There was an error updating the price.',
+				 confirmButtonText: 'OK'
+			});
+	     </script>";
+		 }
+
+		// Close the statement
+      $stmt->close();
+	  } else {
+		echo "<script>
+		Swal.fire({
+			 icon: 'warning',
+			 title: 'Invalid Input',
+			 text: 'Please enter a valid price greater than 0.',
+			 confirmButtonText: 'OK'
+		});
+     </script>";
+	}
+}	
+
+
+//** Script to updating of services */
+//** if services data is set */
+if (isset($_POST['category_services'])) {
+  
+	// Get the new services from the form
+	$new_services = mysqli_real_escape_string($conn, $_POST['category_services']);
+	$id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the id from the form
+
+	// Ensure $new_services is valid 
+	if ($new_services) {
+		 // Update the services column in the database
+		 $sql = "UPDATE room_categories SET services = ? WHERE id = ?";
+
+		 // Prepare the statement to prevent SQL injection
+		 $stmt = $conn->prepare($sql);
+		 $stmt->bind_param("si", $new_services, $id); 
+
+		 // Execute the statement
+		 if ($stmt->execute()) {
+			//   echo "Services updated successfully!";
+			echo "<script>
+			Swal.fire({
+				 icon: 'success',
+				 title: 'Success!',
+				 text: 'Services updated successfully!',
+				 confirmButtonText: 'OK'
+				}).then((result) => {
+				 if (result.isConfirmed) {
+					window.location.href = 'http://localhost/hotel-ui/admin/index.php?page=categories'; 
+				 }
+			});
+	   </script>";
+		 } else {
+			echo "<script>
+			Swal.fire({
+				 icon: 'error',
+				 title: 'Error!',
+				 text: 'There was an error updating services.',
+				 confirmButtonText: 'OK'
+			});
+	     </script>";
+		 }
+
+		// Close the statement
+      $stmt->close();
+	  } else {
+		echo "<script>
+		Swal.fire({
+			 icon: 'warning',
+			 title: 'Invalid Input',
+			 text: 'Please enter a valid data ',
+			 confirmButtonText: 'OK'
+		});
+     </script>";
+	}
+}	
+
+?>
+<!--/ PHP script for data updates -->
+
+
 
 <script>
 	function displayImg(input,_this) {

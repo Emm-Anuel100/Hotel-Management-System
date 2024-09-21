@@ -20,6 +20,9 @@
   <link href="assets/DataTables/datatables.min.css" rel="stylesheet">
 
 
+  <!-- Sweet alert link -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
   <!-- Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <link type="text/css" rel="stylesheet" href="assets/css/jquery-te-1.4.0.css">

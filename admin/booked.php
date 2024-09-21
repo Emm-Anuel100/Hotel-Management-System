@@ -75,7 +75,7 @@ while($row = $room->fetch_assoc()){
 
     // Use event delegation for dynamically generated elements
     $(document).on('click', '.check_out', function() {
-        uni_modal("Check Out", "manage_check_out.php?checkout=1&id=" + $(this).attr("data-id"));
+        uni_modal("Check Out", "manage_booked.php?checkout=1&id=" + $(this).attr("data-id"));
     });
 
     $('#filter').submit(function(e) {
@@ -84,12 +84,4 @@ while($row = $room->fetch_assoc()){
     });
 });
 
-	// $('table').dataTable()
-	// $('.check_out').click(function(){
-	// 	uni_modal("Check Out","manage_check_out.php?checkout=1&id="+$(this).attr("data-id"))
-	// })
-	// $('#filter').submit(function(e){
-	// 	e.preventDefault()
-	// 	location.replace('index.php?page=check_in&category_id='+$(this).find('[name="category_id"]').val()+'&status='+$(this).find('[name="status"]').val())
-	// })
 </script>

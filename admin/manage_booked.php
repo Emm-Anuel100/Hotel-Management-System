@@ -1,3 +1,5 @@
+
+
 <?php 
 include('db_connect.php');
 if($_GET['id']){
@@ -28,7 +30,6 @@ if($_GET['id']){
 	}
 </style>
 <div class="container-fluid">
-	<p><b>Room : </b><?php echo isset($room['room']) ? $room['room'] : '...' ?></p> 
 	<p><b>Room Category : </b><?php echo $cat['name'] ?></p>
 	<p><b>Room Price : </b><?php echo '&#8358;'.number_format($cat['price'],2) ?></p>
 	<p><b>Reference no : </b><?php echo $ref_no ?></p>
@@ -39,19 +40,18 @@ if($_GET['id']){
 	<p><b>Days : </b><?php echo $calc_days ?></p>
 	<p><b>Amount (Price * Days) : </b><?php echo '&#8358;'.number_format($cat['price'] * $calc_days ,2) ?></p> <br>
 	
-		<div class="row">
+		<div class="row" >
 			<?php if(isset($_GET['checkout']) && $status != 2): ?>
-				<div class="col-md-3">
+				<!-- <div class="col-md-3">
 					<button type="button" class="btn btn-primary" id="checkout">Checkout</button>
-				</div>
+				</div> -->
 				<div class="col-md-3">
-					<button type="button" class="btn btn-primary" id="edit_checkin">Edit</button>
+					<button type="button" class="btn btn-primary" style="width: 7.2em; display: flex;" id="edit_checkin">Asign room</button>
 				</div>
 	      	<?php endif; ?>	
 				<div class="col-md-3">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 				</div>
-		
 		</div>
 </div>
 <script>
@@ -61,20 +61,20 @@ if($_GET['id']){
 	$('#edit_checkin').click(function(){
 		uni_modal("Edit Check In","manage_check_in.php?id=<?php echo $id ?>&rid=<?php echo $room_id ?>")
 	})
-	$('#checkout').click(function(){
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=save_checkout',
-			method:'POST',
-			data:{id:'<?php echo $id ?>',rid:'<?php echo $room_id ?>'},
-			success:function(resp){
-				if(resp ==1){
-					alert_toast("Data successfully saved",'success')
-					setTimeout(function(){
-						location.reload()
-					},2000)
-				}
-			}
-		})
-	})
+	// $('#checkout').click(function(){
+	// 	start_load()
+	// 	$.ajax({
+	// 		url:'ajax.php?action=save_checkout',
+	// 		method:'POST',
+	// 		data:{id:'<?php echo $id ?>',rid:'<?php echo $room_id ?>'},
+	// 		success:function(resp){
+	// 			if(resp ==1){
+	// 				alert_toast("Data successfully saved",'success')
+	// 				setTimeout(function(){
+	// 					location.reload()
+	// 				},2000)
+	// 			}
+	// 		}
+	// 	})
+	// })
 </script>
