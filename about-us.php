@@ -164,8 +164,9 @@
                     <div class="col-lg-6">
                         <div class="ap-title">
                             <h2>Welcome To Sona.</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatem aliquid culpa illo commodi libero,
-                               numquam fugit voluptate optio eius neque cupiditate nihil dolores beatae.</p>
+                            <p>At Sona Hotel, we provide elegant accommodations and 
+                                tailored services, ensuring every guest experiences comfort and luxury during 
+                                their stay in Abuja. Discover unforgettable moments with us.</p>
                         </div>
                     </div>
                     <div class="col-lg-5 offset-lg-1">
@@ -218,8 +219,8 @@
                 <div class="col-lg-12">
                     <div class="video-text">
                         <h2>Discover Our Services.</h2>
-                        <p>It S Hurricane Season But We Are Visiting Hilton Head Island</p>
-                        <a href="https://www.youtube.com/watch?v=EzKkl64rRbM" class="play-btn video-popup">
+                        <p>Explore the exceptional services we offer.</p>
+                        <a href="https://www.youtube.com" class="play-btn video-popup">
                             <img src="img/play.png" alt="video poster">
                         </a>
                     </div>
