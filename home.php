@@ -169,7 +169,8 @@
                         <h1>Sona, A Luxury Hotel</h1>
                         <p>
                           At Sona Hotel, we pride ourselves on offering an unparalleled experience for our guests. 
-                          Our establishment combines elegant design with exceptional service, ensuring that your stay is both comfortable and memorable. 
+                          Our establishment combines elegant design with exceptional service, 
+                          ensuring that your stay is both comfortable and memorable. 
                         </p>
                         <a href="./index.php?page=about-us" class="primary-btn">Explore</a>
                     </div>

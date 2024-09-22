@@ -77,8 +77,8 @@ ul, ol {
 	margin-top: 10px;
 }
 .set-bg {
-	background-repeat: no-repeat;
 	background-size: cover;
+	background-repeat: no-repeat;
 	background-position: top center;
 }
 .spad {
