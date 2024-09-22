@@ -19,7 +19,6 @@
   <link href="assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet">
   <link href="assets/DataTables/datatables.min.css" rel="stylesheet">
 
-
   <!-- Sweet alert link -->
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 

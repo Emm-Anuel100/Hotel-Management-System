@@ -27,8 +27,11 @@
  <body>
      <?php
 	  global $conn;
-	  $date_in = isset($_POST['date_in']) ? $_POST['date_in'] : date('Y-m-d');
-	  $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtotime(date('Y-m-d').' + 3 days'));
+	//   $date_in = isset($_POST['date_in']) ? $_POST['date_in'] : date('Y-m-d');
+	//   $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtotime(date('Y-m-d').' + 3 days'));
+    $date_in = isset($_POST['date_in']) ? date('Y-m-d', strtotime($_POST['date_in'])) : date('Y-m-d');
+    $date_out = isset($_POST['date_out']) ? date('Y-m-d', strtotime($_POST['date_out'])) : date('Y-m-d', strtotime('+3 days'));    
+
 	 ?>
 
       <!-- Page Preloder -->
@@ -189,30 +192,41 @@
             while($row = $cat->fetch_assoc()){
                 $cat_arr[$row['id']] = $row;
              }
-             $qry = $conn->query("SELECT distinct(category_id),category_id from rooms where id not in (SELECT room_id from checked where '$date_in' BETWEEN date(date_in) and date(date_out) and '$date_out' BETWEEN date(date_in) and date(date_out)  )");
-             while($row= $qry->fetch_assoc()):
-			 ?>
-                <div class="col-lg-4 col-md-6">
-                    <div class="room-item">
-                    <img src="assets/img/<?= $cat_arr[$row['category_id']]['cover_img'] ?>" alt="Category image" loading="lazy" class="category-img">
-                        <div class="ri-text">
-                            <h4 class="room-category"><?= $cat_arr[$row['category_id']]['name'] ?></h4>
-                            <h3><?= '&#8358; '.number_format($cat_arr[$row['category_id']]['price'],2) ?><span>/Pernight</span></h3>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="r-o">Capacity:</td>
-                                        <td>Max. person <?= $cat_arr[$row['category_id']]['capacity'] ?></td>
-                                    </tr>
-                                    <tr>
-                                        <td class="r-o">Services:</td>
-                                        <td><?= $cat_arr[$row['category_id']]['services'] ?></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="primary-btn book_now" data-id="<?= $row['category_id'] ?>">Book Now</a>
-                        </div>
+            //  $qry = $conn->query("SELECT distinct(category_id),category_id from rooms where id not in (SELECT room_id from checked where '$date_in' BETWEEN date(date_in) and date(date_out) and '$date_out' BETWEEN date(date_in) and date(date_out)  )");
+            $qry = $conn->query("SELECT distinct(category_id), category_id 
+            FROM rooms 
+            WHERE id NOT IN (
+                SELECT room_id 
+                FROM checked 
+                WHERE ('$date_in' BETWEEN date(date_in) AND date(date_out) 
+                  OR '$date_out' BETWEEN date(date_in) AND date(date_out) 
+                  OR ('$date_in' <= date_in AND '$date_out' >= date_out))
+            )
+           ");
+
+            while($row= $qry->fetch_assoc()):
+            ?>
+            <div class="col-lg-4 col-md-6">
+                <div class="room-item">
+                <img src="assets/img/<?= $cat_arr[$row['category_id']]['cover_img'] ?>" alt="Category image" loading="lazy" class="category-img">
+                    <div class="ri-text">
+                        <h4 class="room-category"><?= $cat_arr[$row['category_id']]['name'] ?></h4>
+                        <h3><?= '&#8358; '.number_format($cat_arr[$row['category_id']]['price'],2) ?><span>/Pernight</span></h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="r-o">Capacity:</td>
+                                    <td>Max. person <?= $cat_arr[$row['category_id']]['capacity'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Services:</td>
+                                    <td><?= $cat_arr[$row['category_id']]['services'] ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="#" class="primary-btn book_now" data-id="<?= $row['category_id'] ?>">Book Now</a>
                     </div>
+                </div>
                 </div>
                 <?php endwhile; ?>
                 <!-- <div class="col-lg-12">

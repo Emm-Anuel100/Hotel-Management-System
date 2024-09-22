@@ -134,6 +134,7 @@ Class Action {
 		$data = " room_id = '$rid' ";
 		$data .= ", name = '$name' ";
 		$data .= ", contact_no = '$contact' ";
+		$data .= ", email = '$email' ";
 		$data .= ", status = 1 ";
 
 		$data .= ", date_in = '".$date_in.' '.$date_in_time."' ";
@@ -156,7 +157,7 @@ Class Action {
 		if($save){
 
 			$this->db->query("UPDATE rooms set status = 1 where id=".$rid);
-					return $id;
+				return $id;
 		}
 	}
 	
@@ -194,11 +195,11 @@ Class Action {
 		$id = $this->db->insert_id;
 		
 		if($save){
-			 // Return reference number and ID as JSON
-			 return json_encode(['id' => $id, 'ref_no' => $ref]);
+			 // echo reference number and ID as JSON
+			 echo json_encode(['id' => $id, 'ref_no' => $ref]);
+			//  return json_encode(['id' => $id, 'ref_no' => $ref]);
 		}
 		
 		return false;
   }  
-
 }

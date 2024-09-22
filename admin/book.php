@@ -30,7 +30,7 @@ include('db_connect.php');
 
 <div class="container-fluid">
 	
-	<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" id="manage-check">
+       <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" id="manage-check">
 		<input type="hidden" name="cid" value="<?php echo isset($_GET['cid']) ? $_GET['cid']: '' ?>">
 		<input type="hidden" name="rid" value="<?php echo isset($_GET['rid']) ? $_GET['rid']: '' ?>">
 
@@ -61,17 +61,79 @@ include('db_connect.php');
 	</form>
 </div>
 
+
 <script>
-	function alert_toast(message, type) {
-    var toast = $('#alert-toast');
-    toast.text(message);
-    toast.removeClass('success error'); // Remove previous type classes
-    toast.addClass(type); // Add the new type class
-    // toast.fadeIn().delay(8000).fadeOut(); // Show for 8 seconds
+function alert_toast(message, type, referenceNumber) {
+Swal.fire({
+    icon: type === 'success' ? 'success' : 'error',
+    title: message,
+    html: `
+        <p>
+          <b>
+            Booked: Your reference code: <span id="refNo">${referenceNumber}</span>
+            <button id="copyRefNo" class="swal2-confirm swal2-styled" style="background-color: black; border: none;">
+                Copy
+            </button>
+            </b>
+        </p>`,
+    showConfirmButton: false,
+    toast: true,
+    position: 'top-end',
+    didOpen: () => {
+        const copyButton = document.getElementById('copyRefNo');
+        copyButton.addEventListener('click', () => {
+            const refNo = document.getElementById('refNo').innerText;
+            navigator.clipboard.writeText(refNo).then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Copied!',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            }).catch(err => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed to copy!',
+                    toast: true,
+                    position: 'top-end',
+                    timer: 2000,
+                    showConfirmButton: false
+                });
+            });
+        });
+    }
+});
+}
+
+
+
+$('#manage-check').submit(function(e) {
+    e.preventDefault();
+    
+    // Check for empty fields
+    let emptyFields = [];
+    $(this).find('input[required]').each(function() {
+        if (!$(this).val()) {
+            emptyFields.push($(this).attr('name'));
+        }
+    });
+
+    if (emptyFields.length > 0) {
+        // Show SweetAlert if there are empty fields
+        Swal.fire({
+            icon: 'error',
+            title: 'Please fill in all required fields!',
+            text: 'The following fields are empty: ' + emptyFields.join(', '),
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000,
+            toast: true
+        });
+        return; // Prevent form submission
     }
 
-	$('#manage-check').submit(function(e){
-    e.preventDefault();
     start_load();
     $.ajax({
         url: 'admin/ajax.php?action=save_book',
@@ -80,32 +142,15 @@ include('db_connect.php');
         success: function(response) {
             var resp = JSON.parse(response);
             if (resp.id > 0) {
-                alert_toast("Room booked your reference No: " + resp.ref_no, 'success');
-                // setTimeout(function(){
-                //     end_load();
-                //     $('.modal').modal('hide');
-                // }, 8000); /// display fro 8 seconds
+                // Call alert_toast with the message and reference number
+                alert_toast(" ", 'success', resp.ref_no);
+                
+                setTimeout(function() {
+                    end_load();
+                    $('.modal').modal('hide');
+                }, 10); // Timing 
             }
         }
     });
 });
-
-// $('#manage-check').submit(function(e){
-// 	e.preventDefault();
-// 	start_load()
-// 	$.ajax({
-// 		url:'admin/ajax.php?action=save_book',
-// 		method:'POST',
-// 		data:$(this).serialize(),
-// 		success:function(resp){
-// 			if(resp >0){
-// 				alert_toast("Room booked sucessfully!",'success')
-// 				setTimeout(function(){
-// 				end_load()
-// 				$('.modal').modal('hide')
-// 				},1500)
-// 			}
-// 		}
-// 	})
-// })
 </script>

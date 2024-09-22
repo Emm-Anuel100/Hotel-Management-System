@@ -15,7 +15,7 @@ include('db_connect.php');
 				<div class="card">
 					<div class="card-header">
 						Add Room Category
-				  	</div>
+					</div>
 					<div class="card-body">
 							<input type="hidden" name="id">
 							<div class="form-group">
@@ -107,7 +107,7 @@ include('db_connect.php');
 									</td>
 									<td class="">
 									<p>
-									<form action="http://localhost/hotel-ui/admin/index.php?page=categories" method="POST">
+									<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" method="POST">
 										<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 										<input type="text" name="category_services" placeholder="<?php echo ($row['services']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
 										<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none; color: #fff">
@@ -332,63 +332,88 @@ if (isset($_POST['capacity'])) {
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
-	$('#manage-category').submit(function(e){
-		e.preventDefault()
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=save_category',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp==1){
-					alert_toast("Data successfully added",'success')
-					setTimeout(function(){
-						location.reload()
-					},5000)
 
-				}
-				else if(resp==2){
-					alert_toast("Data successfully updated",'success')
-					setTimeout(function(){
-						location.reload()
-					},5000)
+	$('#manage-category').submit(function(e) {
+    e.preventDefault(); // Prevent default form submission
 
-				}
+    // Initialize an array to hold empty fields
+    let emptyFields = [];
+
+    // Check each required input field
+    $(this).find('input[name="name"], input[name="price"], input[name="capacity"], textarea[name="services"]').each(function() {
+        if (!$(this).val()) {
+            emptyFields.push($(this).prev('label').text()); // Get the label of the empty field
+        }
+    });
+
+    // If there are empty fields, show a warning and do not submit
+    if (emptyFields.length > 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Please fill in all required fields!',
+            showConfirmButton: false,
+            position: 'top-end',
+            toast: true,
+            timer: 4000 
+        });
+        return; // Exit the function to prevent form submission
+    }
+
+    // If all fields are filled, proceed with AJAX submission
+    start_load();
+    $.ajax({
+        url: 'ajax.php?action=save_category',
+        data: new FormData($(this)[0]),
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: 'POST',
+        type: 'POST',
+        success: function(resp) {
+            if (resp == 1) {
+                alert_toast("Data successfully added", 'success');
+                setTimeout(function() {
+                    location.reload();
+                }, 5000);
+            } else if (resp == 2) {
+                alert_toast("Data successfully updated", 'success');
+                setTimeout(function() {
+                    location.reload();
+                }, 5000);
+            }
+        }
+    });
+});
+
+
+$('.edit_cat').click(function(){
+	start_load()
+	var cat = $('#manage-category')
+	cat.get(0).reset()
+	cat.find("[name='id']").val($(this).attr('data-id'))
+	cat.find("[name='name']").val($(this).attr('data-name'))
+	cat.find("[name='price']").val($(this).attr('data-price'))
+	cat.find("#cimg").attr('src','../assets/img/'+$(this).attr('data-cover_img'))
+	end_load()
+})
+$('.delete_cat').click(function(){
+	_conf("Are you sure to delete this category?","delete_cat",[$(this).attr('data-id')])
+})
+function delete_cat($id){
+	start_load()
+	$.ajax({
+		url:'ajax.php?action=delete_category',
+		method:'POST',
+		data:{id:$id},
+		success:function(resp){
+			if(resp==1){
+				alert_toast("Data successfully deleted",'success')
+				setTimeout(function(){
+					location.reload()
+				},1500)
+
 			}
-		})
+		}
 	})
-	$('.edit_cat').click(function(){
-		start_load()
-		var cat = $('#manage-category')
-		cat.get(0).reset()
-		cat.find("[name='id']").val($(this).attr('data-id'))
-		cat.find("[name='name']").val($(this).attr('data-name'))
-		cat.find("[name='price']").val($(this).attr('data-price'))
-		cat.find("#cimg").attr('src','../assets/img/'+$(this).attr('data-cover_img'))
-		end_load()
-	})
-	$('.delete_cat').click(function(){
-		_conf("Are you sure to delete this category?","delete_cat",[$(this).attr('data-id')])
-	})
-	function delete_cat($id){
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=delete_category',
-			method:'POST',
-			data:{id:$id},
-			success:function(resp){
-				if(resp==1){
-					alert_toast("Data successfully deleted",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
-
-				}
-			}
-		})
-	}
+}
 </script>
