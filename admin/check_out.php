@@ -17,7 +17,6 @@ while($row = $room->fetch_assoc()){
 ?>
 
 <div class="container-fluid">
-
 <style> 
 	tr,th{
 	text-align: center;
@@ -66,7 +65,7 @@ while($row = $room->fetch_assoc()){
                                     <td class=""><?php echo $room_name ?></td>
                                     <td class=""><?php echo htmlspecialchars($row['ref_no']) ?></td>
                                     <?php if($row['status'] == 1): ?>
-                                        <td class="text-center"><span class="badge badge-warning">Checked-IN</span></td>
+                                        <td class="text-center"><span class="badge badge-warning">Checked-In</span></td>
                                     <?php else: ?>
                                         <td class="text-center"><span class="badge badge-success">Checked-Out</span></td>
                                     <?php endif; ?>

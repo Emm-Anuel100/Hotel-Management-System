@@ -720,6 +720,7 @@ ul, ol {
 }
 .hp-room-items .hp-room-item .hr-text h3 {
 	color: #ffffff;
+	text-transform: capitalize;
 	margin-bottom: 15px;
 }
 .hp-room-items .hp-room-item .hr-text h2 {
@@ -743,6 +744,7 @@ ul, ol {
 	font-size: 16px;
 	color: #ffffff;
 	line-height: 36px;
+	text-transform: capitalize;
 }
 .hp-room-items .hp-room-item .hr-text table tbody tr td.r-o {
 	width: 120px;
@@ -1145,6 +1147,7 @@ ul, ol {
 .room-item .ri-text h4 {
 	color: #19191a;
 	margin-bottom: 17px;
+	text-transform: capitalize;
 }
 .room-item .ri-text h3 {
 	color: #dfa974;
@@ -1164,6 +1167,7 @@ ul, ol {
 	font-size: 16px;
 	color: #707079;
 	line-height: 36px;
+	text-transform: capitalize;
 }
 .room-item .ri-text table tbody tr td.r-o {
 	width: 125px;

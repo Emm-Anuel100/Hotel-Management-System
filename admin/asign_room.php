@@ -37,8 +37,8 @@ if (isset($_GET['id'])) {
             $rooms = $conn->query("SELECT * FROM rooms WHERE status = 0 OR id = $rid ORDER BY id ASC");
             ?>
             <div class="form-group">
-                <!-- <label for="name">Room</label> -->
-                <select name="rid" id="" class="custom-select browser-default" style="display: none">
+                <label for="name">Room</label>
+                <select name="rid" id="" class="custom-select browser-default">
                     <?php while ($row = $rooms->fetch_assoc()): ?>
                         <option value="<?php echo $row['id'] ?>" <?php echo $row['id'] == $rid ? "selected" : '' ?> >
                             <?php echo htmlspecialchars($row['room']) . " | " . htmlspecialchars($cat_arr[$row['category_id']]['name']) ?>

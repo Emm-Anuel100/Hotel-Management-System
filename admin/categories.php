@@ -140,6 +140,9 @@ include('db_connect.php');
 		vertical-align: middle !important;
 		text-align: center;
 	}
+	.colored-toast .swal2-timer-progress-bar {
+		background-color: blue !important; /* Set the progress bar color to blue */
+	}
 </style>
 
 
@@ -349,12 +352,20 @@ if (isset($_POST['capacity'])) {
     // If there are empty fields, show a warning and do not submit
     if (emptyFields.length > 0) {
         Swal.fire({
-            icon: 'warning',
+            icon: 'error',
             title: 'Please fill in all required fields!',
             showConfirmButton: false,
             position: 'top-end',
             toast: true,
-            timer: 4000 
+            timer: 3000 ,
+				timerProgressBar: true,
+				customClass: {
+					popup: 'colored-toast' // Add a custom class to style the toast
+				},
+				didOpen: (toast) => {
+					toast.addEventListener('mouseenter', Swal.stopTimer)
+					toast.addEventListener('mouseleave', Swal.resumeTimer)
+				}
         });
         return; // Exit the function to prevent form submission
     }
