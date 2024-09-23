@@ -2,11 +2,11 @@
      <head>
        <meta charset="utf-8" />
        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-       <meta name="description" content="" />
-       <meta name="author" content="<?= $_SESSION['setting_hotel_name'] ?>" />
-       <meta name="keywords" content="Sona, unica, creative, html">
+       <meta name="description" content="Hotel where users can make room bookings with ease" />
+       <meta name="author" content="hotel name" >
+       <meta name="keywords" content="Sona, unica, creative">
        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-       <link rel="shortcut icon" href="./img/flag.jpg" type="image/x-icon">
+       <link rel="shortcut icon" href="./img/flag.jpg" type="image/jpg">
 
        <!-- Google Font -->
        <link href="https://fonts.googleapis.com/css?family=Lora:400,700&display=swap" rel="stylesheet">

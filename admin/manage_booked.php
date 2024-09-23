@@ -60,7 +60,7 @@ if($_GET['id']){
 		
 	})
 	$('#edit_checkin').click(function(){
-		uni_modal("Edit Check In","manage_check_in.php?id=<?php echo $id ?>&rid=<?php echo $room_id ?>")
+		uni_modal("Edit Check In","asign_room.php?id=<?php echo $id ?>&rid=<?php echo $room_id ?>")
 	})
 	// $('#checkout').click(function(){
 	// 	start_load()

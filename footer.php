@@ -11,7 +11,7 @@
                                 <img src="img/footer-logo.png" alt="">
                             </a>
                         </div>
-                        <p>We inspire and connect with countless <br />travelers from all over the country.</p>
+                        <p>We inspire and connect with countless <br /> travelers from all over the country.</p>
                         <div class="fa-social">
                             <a href="#"><i class="fa fa-facebook"></i></a>
                             <a href="#"><i class="fa fa-twitter"></i></a>

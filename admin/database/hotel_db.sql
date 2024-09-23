@@ -46,11 +46,19 @@ CREATE TABLE `checked` (
 --
 
 INSERT INTO `checked` (`id`, `ref_no`, `room_id`, `name`, `contact_no`, `email`, `date_in`, `date_out`, `booked_cid`, `status`, `date_updated`) VALUES
+(230, '4489637689\n', 35, 'Emmanuel Brenda', '08121669013', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:47:00', '2024-09-25 20:47:00', 15, 1, '2024-09-23 11:44:38'),
+(231, '8014572028\n', 31, 'Emmanuel john dan', '07066405052', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:48:00', '2024-09-24 20:48:00', 20, 2, '2024-09-23 11:09:36'),
+(232, '1608992434\n', 30, 'Emmanuel Brendan', '08121669012', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:48:00', '2024-09-26 20:48:00', 14, 2, '2024-09-23 10:08:08'),
+(233, '6670462395\n', 31, 'Ola David', '08121669013', 'chinweokwuemmanuel2004@gmail.c', '2024-09-22 21:00:00', '2024-09-25 21:00:00', 14, 2, '2024-09-23 10:08:02'),
+(234, '3586404308\n', 33, 'emmy', '12', 'emmy2004@gmail.com', '2024-09-22 22:18:00', '2024-09-23 22:18:00', 0, 2, '2024-09-23 10:07:45'),
+(236, '551770140\n', 31, 'Emmanuel Dave', '545454', 'emmanuelodel75@gmail.come', '2024-09-23 12:20:00', '2024-09-25 12:20:00', 0, 1, '2024-09-23 11:21:31'),
+(237, '5544312435\n', 48, 'Emmanuel Brendan', '08121669013', 'chinweokwuemmanuel2004@gmail.com', '2024-09-23 13:08:00', '2024-09-24 13:08:00', 0, 1, '2024-09-23 12:09:06');
 (230, '8803342262\n', 0, 'Emmanuel Brendan', '08121669013', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:47:00', '2024-09-25 20:47:00', 15, 0, '2024-09-22 19:47:09'),
 (231, '5022271750\n', 0, 'Emmanuel Brendan', '08121669013', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:48:00', '2024-09-25 20:48:00', 20, 0, '2024-09-22 19:48:13'),
 (232, '1608992434\n', 30, 'Emmanuel Brendan', '08121669012', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:48:00', '2024-09-26 20:48:00', 14, 1, '2024-09-22 19:53:32'),
 (233, '6670462395\n', 31, 'Ola David', '08121669013', 'chinweokwuemmanuel2004@gmail.c', '2024-09-22 21:00:00', '2024-09-25 21:00:00', 14, 1, '2024-09-22 20:01:35'),
 (234, '7543445108\n', 32, 'emmy', '12', 'emmy2004@gmail.com', '2024-09-22 22:18:00', '2024-09-23 22:18:00', 0, 1, '2024-09-22 21:19:08');
+
 
 -- --------------------------------------------------------
 
@@ -62,18 +70,21 @@ CREATE TABLE `contact` (
   `id` int(255) NOT NULL,
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `message` text NOT NULL
+  `message` text NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `contact`
 --
 
-INSERT INTO `contact` (`id`, `name`, `email`, `message`) VALUES
-(1, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'gg'),
-(2, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'hello world'),
-(3, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'wzxecrtvbyunm,iyuttrdy'),
-(4, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'ERTYUNM,');
+INSERT INTO `contact` (`id`, `name`, `email`, `message`, `timestamp`) VALUES
+(1, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'gg', '2024-09-23 08:55:22'),
+(2, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'hello world', '2024-09-23 08:55:22'),
+(3, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'wzxecrtvbyunm,iyuttrdy', '2024-09-23 08:55:22'),
+(4, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'ERTYUNM,', '2024-09-23 08:55:22'),
+(5, 'lanre', 'Obah', 'hi', '2024-09-23 09:23:06'),
+(6, 'Emmanuel Brendan', 'chinweokwuemmanuel2004@gmail.com', 'gg', '2024-09-23 11:11:08');
 
 -- --------------------------------------------------------
 
@@ -83,23 +94,21 @@ INSERT INTO `contact` (`id`, `name`, `email`, `message`) VALUES
 
 CREATE TABLE `news_letter` (
   `id` int(255) NOT NULL,
-  `email` varchar(100) NOT NULL
+  `email` varchar(100) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `news_letter`
 --
 
-INSERT INTO `news_letter` (`id`, `email`) VALUES
-(1, 'chinweokwuemmanuel2004@gmail.com'),
-(3, 'kenny@gmail.com'),
-(6, 'chinweokwuemmanuel2004@gmail.com'),
-(7, 'john@gmail.com'),
-(8, ''),
-(9, 'chinweokwuemmanuel2004@gmail.com'),
-(10, 'chinweokwuemmanuel2004@gmail.com'),
-(11, 'john@gmail.com'),
-(12, 'chinweokwuemmanuel2004@gmail.com');
+INSERT INTO `news_letter` (`id`, `email`, `timestamp`) VALUES
+(1, 'chinweokwuemmanuel2004@gmail.com', '2024-09-23 08:53:11'),
+(3, 'kenny@gmail.com', '2024-09-23 08:53:11'),
+(6, 'chinweokwuemmanuel2004@gmail.com', '2024-09-23 08:53:11'),
+(7, 'john@gmail.com', '2024-09-23 08:53:11'),
+(13, 'Obah', '2024-09-23 09:23:06'),
+(14, 'chinweokwuemmanuel2004@gmail.com', '2024-09-23 11:11:08');
 
 -- --------------------------------------------------------
 
@@ -119,6 +128,12 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`id`, `room`, `category_id`, `status`) VALUES
+(30, 'room 120A', 14, 0),
+(31, 'room 125B', 15, 1),
+(32, 'room 124C', 13, 0),
+(33, 'room 120D', 14, 0),
+(34, 'room 125n', 13, 0),
+(35, 'room 120P', 15, 1),
 (30, 'room 120A', 14, 1),
 (31, 'room 125B', 15, 1),
 (32, 'room 124C', 13, 1),
@@ -131,6 +146,9 @@ INSERT INTO `rooms` (`id`, `room`, `category_id`, `status`) VALUES
 (42, 'room 23R', 18, 0),
 (43, 'room 120L', 20, 0),
 (44, 'room 120rft', 20, 0),
+(45, 'room 120der', 18, 0),
+(47, 'room 120ert', 18, 0),
+(48, 'room 102', 19, 1);
 (45, 'room 120der', 18, 0);
 
 -- --------------------------------------------------------
@@ -155,6 +173,8 @@ CREATE TABLE `room_categories` (
 INSERT INTO `room_categories` (`id`, `name`, `price`, `capacity`, `services`, `cover_img`) VALUES
 (13, 'vip', 2000, 3, '	Wifi, Television, Bathroom, Kitchen', '1723553100_notificationImg2.jpg'),
 (14, 'regular', 3000, 2, 'wifi', '1723553100_notificationImg1.jpg'),
+(15, 'platinum', 55000, 2, '	Wifi, Television, Bathroom, Kitchen', '1723553160_room-3.jpg'),
+(18, 'Gold', 20000, 2, '	Television, Bathroom, Kitchen', '1723684740_room-details.jpg'),
 (15, 'platinum', 55000, 1, '	Wifi, Television, Bathroom, Kitchen', '1723553160_room-3.jpg'),
 (18, 'Gold', 20000, 3, '	Television, Bathroom, Kitchen', '1723684740_room-details.jpg'),
 (19, 'Kings', 9997, 2, '	Wifi, Television, Bathroom, Kitchen', '1723684800_room-b3.jpg'),
@@ -258,7 +278,8 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `checked`
 --
 ALTER TABLE `checked`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=235;
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
+
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -270,12 +291,13 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `news_letter`
 --
 ALTER TABLE `news_letter`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
+
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
