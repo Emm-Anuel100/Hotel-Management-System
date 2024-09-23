@@ -164,8 +164,9 @@
                     <div class="col-lg-6">
                         <div class="ap-title">
                             <h2>Welcome To Sona.</h2>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus voluptatem aliquid culpa illo commodi libero,
-                               numquam fugit voluptate optio eius neque cupiditate nihil dolores beatae.</p>
+                            <p>At Sona Hotel, we provide elegant accommodations and 
+                                tailored services, ensuring every guest experiences comfort and luxury during 
+                                their stay in Abuja. Discover unforgettable moments with us.</p>
                         </div>
                     </div>
                     <div class="col-lg-5 offset-lg-1">
@@ -218,8 +219,8 @@
                 <div class="col-lg-12">
                     <div class="video-text">
                         <h2>Discover Our Services.</h2>
-                        <p>It S Hurricane Season But We Are Visiting Hilton Head Island</p>
-                        <a href="https://www.youtube.com/watch?v=EzKkl64rRbM" class="play-btn video-popup">
+                        <p>Explore the exceptional services we offer.</p>
+                        <a href="https://www.youtube.com" class="play-btn video-popup">
                             <img src="img/play.png" alt="video poster">
                         </a>
                     </div>
@@ -236,7 +237,7 @@
                 <div class="col-lg-12">
                     <div class="section-title">
                         <span>> Gallery <</span>
-                        <h2>Our Work</h2>
+                        <h2>Our Hotel</h2>
                     </div>
                 </div>
             </div>
@@ -276,71 +277,11 @@
     </section>
     <!-- Gallery Section End -->
 
-     <!-- Footer Section Begin -->
-     <footer class="footer-section" style="position: relative; top: 3rem;">
-            <div class="container">
-                <div class="footer-text">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="ft-about">
-                                <div class="logo">
-                                    <a href="#">
-                                        <img src="img/footer-logo.png" alt="">
-                                    </a>
-                                </div>
-                                <p>We inspire and reach millions of travelers<br /> across the nation</p>
-                                <div class="fa-social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 offset-lg-1">
-                            <div class="ft-contact">
-                                <h6>Contact Us</h6>
-                                <ul>
-                                    <li><?= $_SESSION['setting_contact'] ?></li>
-                                    <li><?= $_SESSION['setting_email'] ?></li>
-                                    <li>Plot DD34, kings Avenue Lekki Lagos Nigeria.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 offset-lg-1">
-                            <div class="ft-newslatter">
-                                <h6>Newsletter</h6>
-                                <p>Get the latest updates and offers.</p>
-                                <form action="#" class="fn-form">
-                                    <input type="email" placeholder="Email ..." required>
-                                    <button type="submit"><i class="fa fa-send"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="copyright-option">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-7">
-                            <ul>
-                                <li><a href="./index.php?page=contact">Contact</a></li>
-                                <li><a href="#">Terms of use</a></li>
-                                <li><a href="#">Privacy policy</a></li>
-                                <li><a href="./admin">Admin</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="co-text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> made with <i class="fa fa-heart" aria-hidden="true"></i> <!-- by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- Footer Section End -->
+    <!-- Footer -->
+     <?php
+     include('./footer.php')
+     ?>
+    <!--/ Footer -->
 
         <!-- Search model Begin -->
         <div class="search-model">

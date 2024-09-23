@@ -1659,9 +1659,6 @@ main#view-panel{
     right: 0;
     top: 3.5rem;
 }
-main#main {
-    /*margin-top: 8rem;*/
-}
 main#main.login {
     margin-top: unset;
 }

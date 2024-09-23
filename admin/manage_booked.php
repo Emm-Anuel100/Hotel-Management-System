@@ -35,6 +35,7 @@ if($_GET['id']){
 	<p><b>Reference no : </b><?php echo $ref_no ?></p>
 	<p><b>Name : </b><?php echo $name ?></p>
 	<p><b>Contact no : </b><?php echo $contact_no ?></p>
+	<p><b>Email : </b><?php echo $email ?></p>
 	<p><b>Check-in Date/Time : </b><?php echo date("M d, Y h:i A",strtotime($date_in)) ?></p>
 	<p><b>Check-out Date/Time : </b><?php echo date("M d, Y h:i A",strtotime($date_out)) ?></p>
 	<p><b>Days : </b><?php echo $calc_days ?></p>

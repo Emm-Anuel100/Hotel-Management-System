@@ -11,11 +11,11 @@ include('db_connect.php');
 		<div class="row">
 			<!-- FORM Panel -->
 			<div class="col-md-4">
-			<form action="#" id="manage-category">
+			<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" id="manage-category">
 				<div class="card">
 					<div class="card-header">
 						Add Room Category
-				  	</div>
+					</div>
 					<div class="card-body">
 							<input type="hidden" name="id">
 							<div class="form-group">
@@ -89,7 +89,7 @@ include('db_connect.php');
 									</td>
 									<td class="">
 										<p>
-									    <form action="http://localhost/hotel-ui/admin/index.php?page=categories" method="POST">
+									    <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" method="POST">
 											<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 											<input type="number" name="category_price" placeholder="<?php echo number_format($row['price']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
 											<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none;">
@@ -97,11 +97,17 @@ include('db_connect.php');
 										</p>
 									</td>
 									<td class="">
-										<p><?php echo number_format($row['capacity']) ?></p>
+										<p>
+										 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" method="POST">
+										   <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+											<input type="number" name="capacity" placeholder="<?php echo number_format($row['capacity']) ?>" style="width: 3rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
+											<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 76px; background: #75ADE5; border: none;">
+										 </form>
+										</p>
 									</td>
 									<td class="">
 									<p>
-									<form action="http://localhost/hotel-ui/admin/index.php?page=categories" method="POST">
+									<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']); ?>" method="POST">
 										<input type="hidden" name="id" value="<?php echo $row['id']; ?>">
 										<input type="text" name="category_services" placeholder="<?php echo ($row['services']) ?>" style="width: 8rem; border: 1px solid #DDE0E3; outline: none" min="1" required> <br>
 										<input type="submit" value="update" class="btn btn-primary mt-2" style="width: 130px; background: #75ADE5; border: none; color: #fff">
@@ -196,8 +202,7 @@ if (isset($_POST['category_price'])) {
 	}
 }	
 
-
-//** Script to updating of services */
+//** Script for updating services */
 //** if services data is set */
 if (isset($_POST['category_services'])) {
   
@@ -254,6 +259,63 @@ if (isset($_POST['category_services'])) {
 	}
 }	
 
+
+/** Script for updating capacity */
+//** if capacity data is set */
+if (isset($_POST['capacity'])) {
+  
+	// Get the new capacity from the form
+	$new_capacity = mysqli_real_escape_string($conn, $_POST['capacity']);
+	$id = isset($_POST['id']) ? intval($_POST['id']) : 0; // Get the id from the form
+
+	// Ensure $new_capacity is valid 
+	if ($new_capacity) {
+		 // Update the capacity column in the database
+		 $sql = "UPDATE room_categories SET capacity = ? WHERE id = ?";
+
+		 // Prepare the statement to prevent SQL injection
+		 $stmt = $conn->prepare($sql);
+		 $stmt->bind_param("ii", $new_capacity, $id); 
+
+		 // Execute the statement
+		 if ($stmt->execute()) {
+			//   echo "Services capacity successfully!";
+			echo "<script>
+			Swal.fire({
+				 icon: 'success',
+				 title: 'Success!',
+				 text: 'Capacity updated successfully!',
+				 confirmButtonText: 'OK'
+				}).then((result) => {
+				 if (result.isConfirmed) {
+					window.location.href = 'http://localhost/hotel-ui/admin/index.php?page=categories'; 
+				 }
+			});
+	   </script>";
+		 } else {
+			echo "<script>
+			Swal.fire({
+				 icon: 'error',
+				 title: 'Error!',
+				 text: 'There was an error updating capacity.',
+				 confirmButtonText: 'OK'
+			});
+	     </script>";
+		 }
+
+		// Close the statement
+      $stmt->close();
+	  } else {
+		echo "<script>
+		Swal.fire({
+			 icon: 'warning',
+			 title: 'Invalid Input',
+			 text: 'Please enter a valid data ',
+			 confirmButtonText: 'OK'
+		});
+     </script>";
+	}
+}	
 ?>
 <!--/ PHP script for data updates -->
 
@@ -270,63 +332,88 @@ if (isset($_POST['category_services'])) {
 	        reader.readAsDataURL(input.files[0]);
 	    }
 	}
-	$('#manage-category').submit(function(e){
-		e.preventDefault()
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=save_category',
-			data: new FormData($(this)[0]),
-		    cache: false,
-		    contentType: false,
-		    processData: false,
-		    method: 'POST',
-		    type: 'POST',
-			success:function(resp){
-				if(resp==1){
-					alert_toast("Data successfully added",'success')
-					setTimeout(function(){
-						location.reload()
-					},5000)
 
-				}
-				else if(resp==2){
-					alert_toast("Data successfully updated",'success')
-					setTimeout(function(){
-						location.reload()
-					},5000)
+	$('#manage-category').submit(function(e) {
+    e.preventDefault(); // Prevent default form submission
 
-				}
+    // Initialize an array to hold empty fields
+    let emptyFields = [];
+
+    // Check each required input field
+    $(this).find('input[name="name"], input[name="price"], input[name="capacity"], textarea[name="services"]').each(function() {
+        if (!$(this).val()) {
+            emptyFields.push($(this).prev('label').text()); // Get the label of the empty field
+        }
+    });
+
+    // If there are empty fields, show a warning and do not submit
+    if (emptyFields.length > 0) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Please fill in all required fields!',
+            showConfirmButton: false,
+            position: 'top-end',
+            toast: true,
+            timer: 4000 
+        });
+        return; // Exit the function to prevent form submission
+    }
+
+    // If all fields are filled, proceed with AJAX submission
+    start_load();
+    $.ajax({
+        url: 'ajax.php?action=save_category',
+        data: new FormData($(this)[0]),
+        cache: false,
+        contentType: false,
+        processData: false,
+        method: 'POST',
+        type: 'POST',
+        success: function(resp) {
+            if (resp == 1) {
+                alert_toast("Data successfully added", 'success');
+                setTimeout(function() {
+                    location.reload();
+                }, 5000);
+            } else if (resp == 2) {
+                alert_toast("Data successfully updated", 'success');
+                setTimeout(function() {
+                    location.reload();
+                }, 5000);
+            }
+        }
+    });
+});
+
+
+$('.edit_cat').click(function(){
+	start_load()
+	var cat = $('#manage-category')
+	cat.get(0).reset()
+	cat.find("[name='id']").val($(this).attr('data-id'))
+	cat.find("[name='name']").val($(this).attr('data-name'))
+	cat.find("[name='price']").val($(this).attr('data-price'))
+	cat.find("#cimg").attr('src','../assets/img/'+$(this).attr('data-cover_img'))
+	end_load()
+})
+$('.delete_cat').click(function(){
+	_conf("Are you sure to delete this category?","delete_cat",[$(this).attr('data-id')])
+})
+function delete_cat($id){
+	start_load()
+	$.ajax({
+		url:'ajax.php?action=delete_category',
+		method:'POST',
+		data:{id:$id},
+		success:function(resp){
+			if(resp==1){
+				alert_toast("Data successfully deleted",'success')
+				setTimeout(function(){
+					location.reload()
+				},1500)
+
 			}
-		})
+		}
 	})
-	$('.edit_cat').click(function(){
-		start_load()
-		var cat = $('#manage-category')
-		cat.get(0).reset()
-		cat.find("[name='id']").val($(this).attr('data-id'))
-		cat.find("[name='name']").val($(this).attr('data-name'))
-		cat.find("[name='price']").val($(this).attr('data-price'))
-		cat.find("#cimg").attr('src','../assets/img/'+$(this).attr('data-cover_img'))
-		end_load()
-	})
-	$('.delete_cat').click(function(){
-		_conf("Are you sure to delete this category?","delete_cat",[$(this).attr('data-id')])
-	})
-	function delete_cat($id){
-		start_load()
-		$.ajax({
-			url:'ajax.php?action=delete_category',
-			method:'POST',
-			data:{id:$id},
-			success:function(resp){
-				if(resp==1){
-					alert_toast("Data successfully deleted",'success')
-					setTimeout(function(){
-						location.reload()
-					},1500)
-
-				}
-			}
-		})
-	}
+}
 </script>

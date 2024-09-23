@@ -40,6 +40,7 @@ while($row = $room->fetch_assoc()){
 								<th>S/N</th>
 								<th>Category</th>
 								<th>Reference</th>
+								<th>Email</th>
 								<th>Status</th>
 								<th>Action</th>
 							</thead>
@@ -54,6 +55,7 @@ while($row = $room->fetch_assoc()){
 									<td class="text-center"><?php echo $i++ ?></td>
 									<td class="text-center"><?php echo $cat_arr[$row['booked_cid']]['name'] ?></td>
 									<td class=""><?php echo $row['ref_no'] ?></td>
+									<td class=""><?php echo $row['email'] ?></td>
 									<td class="text-center"><span class="badge badge-warning">Booked</span></td>
 									<td class="text-center">
 									 <button class="btn btn-sm btn-primary check_out" type="button" data-id="<?php echo $row['id'] ?>">View</button>

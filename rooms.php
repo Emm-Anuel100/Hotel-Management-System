@@ -27,8 +27,11 @@
  <body>
      <?php
 	  global $conn;
-	  $date_in = isset($_POST['date_in']) ? $_POST['date_in'] : date('Y-m-d');
-	  $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtotime(date('Y-m-d').' + 3 days'));
+	//   $date_in = isset($_POST['date_in']) ? $_POST['date_in'] : date('Y-m-d');
+	//   $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtotime(date('Y-m-d').' + 3 days'));
+    $date_in = isset($_POST['date_in']) ? date('Y-m-d', strtotime($_POST['date_in'])) : date('Y-m-d');
+    $date_out = isset($_POST['date_out']) ? date('Y-m-d', strtotime($_POST['date_out'])) : date('Y-m-d', strtotime('+3 days'));    
+
 	 ?>
 
       <!-- Page Preloder -->
@@ -189,6 +192,40 @@
             while($row = $cat->fetch_assoc()){
                 $cat_arr[$row['id']] = $row;
              }
+            //  $qry = $conn->query("SELECT distinct(category_id),category_id from rooms where id not in (SELECT room_id from checked where '$date_in' BETWEEN date(date_in) and date(date_out) and '$date_out' BETWEEN date(date_in) and date(date_out)  )");
+            $qry = $conn->query("SELECT distinct(category_id), category_id 
+            FROM rooms 
+            WHERE id NOT IN (
+                SELECT room_id 
+                FROM checked 
+                WHERE ('$date_in' BETWEEN date(date_in) AND date(date_out) 
+                  OR '$date_out' BETWEEN date(date_in) AND date(date_out) 
+                  OR ('$date_in' <= date_in AND '$date_out' >= date_out))
+            )
+           ");
+
+            while($row= $qry->fetch_assoc()):
+            ?>
+            <div class="col-lg-4 col-md-6">
+                <div class="room-item">
+                <img src="assets/img/<?= $cat_arr[$row['category_id']]['cover_img'] ?>" alt="Category image" loading="lazy" class="category-img">
+                    <div class="ri-text">
+                        <h4 class="room-category"><?= $cat_arr[$row['category_id']]['name'] ?></h4>
+                        <h3><?= '&#8358; '.number_format($cat_arr[$row['category_id']]['price'],2) ?><span>/Pernight</span></h3>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td class="r-o">Capacity:</td>
+                                    <td>Max. person <?= $cat_arr[$row['category_id']]['capacity'] ?></td>
+                                </tr>
+                                <tr>
+                                    <td class="r-o">Services:</td>
+                                    <td><?= $cat_arr[$row['category_id']]['services'] ?></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a href="#" class="primary-btn book_now" data-id="<?= $row['category_id'] ?>">Book Now</a>
+=======
              $qry = $conn->query("SELECT distinct(category_id),category_id from rooms where id not in (SELECT room_id from checked where '$date_in' BETWEEN date(date_in) and date(date_out) and '$date_out' BETWEEN date(date_in) and date(date_out)  )");
              while($row= $qry->fetch_assoc()):
 			 ?>
@@ -214,6 +251,7 @@
                         </div>
                     </div>
                 </div>
+                </div>
                 <?php endwhile; ?>
                 <!-- <div class="col-lg-12">
                     <div class="room-pagination">
@@ -226,83 +264,23 @@
         </div>
     </section>
     <!-- Rooms Section End -->
+ 
+    <!-- Footer -->
+     <?php
+     include('./footer.php');
+     ?>
+    <!--/ Footer -->
 
-     <!-- Footer Section Begin -->
-     <footer class="footer-section" style="position: relative; top: 3rem;">
-            <div class="container">
-                <div class="footer-text">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="ft-about">
-                                <div class="logo">
-                                    <a href="#">
-                                        <img src="img/footer-logo.png" alt="">
-                                    </a>
-                                </div>
-                                <p>We inspire and reach millions of travelers<br /> across the nation</p>
-                                <div class="fa-social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
-                                    <a href="#"><i class="fa fa-youtube-play"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 offset-lg-1">
-                            <div class="ft-contact">
-                                <h6>Contact Us</h6>
-                                <ul>
-                                    <li><?= $_SESSION['setting_contact'] ?></li>
-                                    <li><?= $_SESSION['setting_email'] ?></li>
-                                    <li>Plot DD34, kings Avenue Lekki Lagos Nigeria.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 offset-lg-1">
-                            <div class="ft-newslatter">
-                                <h6>Newsletter</h6>
-                                <p>Get the latest updates and offers.</p>
-                                <form action="#" class="fn-form">
-                                    <input type="email" placeholder="Email ..." required>
-                                    <button type="submit"><i class="fa fa-send"></i></button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="copyright-option">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-7">
-                            <ul>
-                                <li><a href="./index.php?page=contact">Contact</a></li>
-                                <li><a href="#">Terms of use</a></li>
-                                <li><a href="#">Privacy policy</a></li>
-                                <li><a href="./admin/">Admin</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-5">
-                            <div class="co-text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                                Copyright &copy;<script>document.write(new Date().getFullYear());</script> made with <i class="fa fa-heart" aria-hidden="true"></i> <!-- by <a href="https://colorlib.com" target="_blank">Colorlib</a> -->
-                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-        <!-- Footer Section End -->
-
-        <!-- Search model Begin -->
-         <div class="search-model">
-        <div class="h-100 d-flex align-items-center justify-content-center">
-         <div class="search-close-switch"><i class="icon_close"></i></div>
-          <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here ..." autocomplete="off">
-          </form>
-        </div>
+    <!-- Search model Begin -->
+        <div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch"><i class="icon_close"></i></div>
+        <form class="search-model-form">
+        <input type="text" id="search-input" placeholder="Search here ..." autocomplete="off">
+        </form>
     </div>
-    <!-- Search model end -->
+  </div>
+  <!-- Search model end -->
 
     <!-- Js Plugins -->
     <script src="js/jquery-3.3.1.min.js"></script>

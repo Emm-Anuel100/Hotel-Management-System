@@ -124,16 +124,4 @@
     });
 });
 
-	// $('table').dataTable()
-	// $('.check_in').click(function(){
-	// 	uni_modal("Check In","manage_check_in.php?rid="+$(this).attr("data-id"))
-	// })
-	// $('#filter').submit(function(e){
-	// 	e.preventDefault()
-	// 	location.replace('index.php?page=check_in&category_id='+$(this).find('[name="category_id"]').val()+'&status='+$(this).find('[name="status"]').val())
-	// })
-
-	// $('.refresh').click(function(){
-	// 	window.location.reload();
-	// })
 </script>
