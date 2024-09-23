@@ -31,6 +31,7 @@
 	//   $date_out = isset($_POST['date_out']) ? $_POST['date_out'] : date('Y-m-d',strtotime(date('Y-m-d').' + 3 days'));
     $date_in = isset($_POST['date_in']) ? date('Y-m-d', strtotime($_POST['date_in'])) : date('Y-m-d');
     $date_out = isset($_POST['date_out']) ? date('Y-m-d', strtotime($_POST['date_out'])) : date('Y-m-d', strtotime('+3 days'));    
+
 	 ?>
 
       <!-- Page Preloder -->

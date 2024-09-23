@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 23, 2024 at 01:18 PM
+-- Generation Time: Sep 22, 2024 at 11:43 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -53,6 +53,12 @@ INSERT INTO `checked` (`id`, `ref_no`, `room_id`, `name`, `contact_no`, `email`,
 (234, '3586404308\n', 33, 'emmy', '12', 'emmy2004@gmail.com', '2024-09-22 22:18:00', '2024-09-23 22:18:00', 0, 2, '2024-09-23 10:07:45'),
 (236, '551770140\n', 31, 'Emmanuel Dave', '545454', 'emmanuelodel75@gmail.come', '2024-09-23 12:20:00', '2024-09-25 12:20:00', 0, 1, '2024-09-23 11:21:31'),
 (237, '5544312435\n', 48, 'Emmanuel Brendan', '08121669013', 'chinweokwuemmanuel2004@gmail.com', '2024-09-23 13:08:00', '2024-09-24 13:08:00', 0, 1, '2024-09-23 12:09:06');
+(230, '8803342262\n', 0, 'Emmanuel Brendan', '08121669013', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:47:00', '2024-09-25 20:47:00', 15, 0, '2024-09-22 19:47:09'),
+(231, '5022271750\n', 0, 'Emmanuel Brendan', '08121669013', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:48:00', '2024-09-25 20:48:00', 20, 0, '2024-09-22 19:48:13'),
+(232, '1608992434\n', 30, 'Emmanuel Brendan', '08121669012', 'chinweokwuemmanuel2004@gmail.com', '2024-09-22 20:48:00', '2024-09-26 20:48:00', 14, 1, '2024-09-22 19:53:32'),
+(233, '6670462395\n', 31, 'Ola David', '08121669013', 'chinweokwuemmanuel2004@gmail.c', '2024-09-22 21:00:00', '2024-09-25 21:00:00', 14, 1, '2024-09-22 20:01:35'),
+(234, '7543445108\n', 32, 'emmy', '12', 'emmy2004@gmail.com', '2024-09-22 22:18:00', '2024-09-23 22:18:00', 0, 1, '2024-09-22 21:19:08');
+
 
 -- --------------------------------------------------------
 
@@ -128,6 +134,12 @@ INSERT INTO `rooms` (`id`, `room`, `category_id`, `status`) VALUES
 (33, 'room 120D', 14, 0),
 (34, 'room 125n', 13, 0),
 (35, 'room 120P', 15, 1),
+(30, 'room 120A', 14, 1),
+(31, 'room 125B', 15, 1),
+(32, 'room 124C', 13, 1),
+(33, 'room 120D', 14, 0),
+(34, 'room 125n', 13, 0),
+(35, 'room 120P', 15, 0),
 (36, 'room 120E', 14, 0),
 (39, 'room 120S', 14, 0),
 (41, 'room 125P', 18, 0),
@@ -137,6 +149,7 @@ INSERT INTO `rooms` (`id`, `room`, `category_id`, `status`) VALUES
 (45, 'room 120der', 18, 0),
 (47, 'room 120ert', 18, 0),
 (48, 'room 102', 19, 1);
+(45, 'room 120der', 18, 0);
 
 -- --------------------------------------------------------
 
@@ -162,6 +175,8 @@ INSERT INTO `room_categories` (`id`, `name`, `price`, `capacity`, `services`, `c
 (14, 'regular', 3000, 2, 'wifi', '1723553100_notificationImg1.jpg'),
 (15, 'platinum', 55000, 2, '	Wifi, Television, Bathroom, Kitchen', '1723553160_room-3.jpg'),
 (18, 'Gold', 20000, 2, '	Television, Bathroom, Kitchen', '1723684740_room-details.jpg'),
+(15, 'platinum', 55000, 1, '	Wifi, Television, Bathroom, Kitchen', '1723553160_room-3.jpg'),
+(18, 'Gold', 20000, 3, '	Television, Bathroom, Kitchen', '1723684740_room-details.jpg'),
 (19, 'Kings', 9997, 2, '	Wifi, Television, Bathroom, Kitchen', '1723684800_room-b3.jpg'),
 (20, 'luxury', 85000, 3, 'hh', '1724077200_blog-1.jpg');
 
@@ -265,11 +280,12 @@ ALTER TABLE `users`
 ALTER TABLE `checked`
   MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=238;
 
+
 --
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `news_letter`
@@ -281,7 +297,8 @@ ALTER TABLE `news_letter`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+
+  MODIFY `id` int(30) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `room_categories`

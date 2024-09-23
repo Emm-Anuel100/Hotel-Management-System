@@ -193,6 +193,9 @@
     <!-- Home Room Section Begin -->
     <section class="hp-room-section">
         <div class="container-fluid">
+<!-- Home Room Section Begin -->
+<section class="hp-room-section">
+    <div class="container-fluid">
         <div class="hp-room-items">
             <div class="row">
                 <?php
@@ -231,7 +234,7 @@
 </div>
 </section>
 <!-- Home Room Section End -->
-
+          
 <!-- Blog Section Begin -->
 <section class="blog-section spad">
 <div class="container">
